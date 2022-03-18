@@ -27,6 +27,30 @@
 .App-link {
   color: #61dafb;
 }
+/*Homepage*/
+.homePage {
+  height: 90vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.headerUsername {
+  margin-left: 20px;
+}
+
+.footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100vw;
+  height: 3vh; /* Set the fixed height of the footer here */
+  line-height: 3vh; /* Vertically center the text there */
+  text-align: center;
+  padding: 10px;
+  margin: 2px;
+  background: #8edde2 !important;
+}
 
 @keyframes App-logo-spin {
   from {
