@@ -12,6 +12,10 @@ const resolvers = {
         let db = await dbRtns.getDBInstance();
         return await dbRtns.findAll(db, users, {}, {})
     },
+    userlogin: async args => {
+        let db = await dbRtns.getDBInstance();
+        return await dbRtns.findOne(db, users, {username: args.username, password: args.password})
+    },
 };
 
  module.exports = { resolvers };

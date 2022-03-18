@@ -1,7 +1,8 @@
 const { buildSchema } = require("graphql");
 const schema = buildSchema(`
     type Query {
-        users: [User]
+        users: [User],
+        userlogin(username: String, password: String): User,
     },
     type Mutation {
         adduser(firstName: String, lastName: String, username: String, password: String,): User,
