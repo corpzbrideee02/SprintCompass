@@ -17,7 +17,7 @@ fastify.get("/", (req, reply) => reply.sendFile("index.html"));
     res.sendFile("index.html");
 });
 
-// fastify.register(require("fastify-cors"), {});
+fastify.register(require("fastify-cors"), {}); // comment out when site goes online
 
 fastify.register(mercurius, {
     schema,

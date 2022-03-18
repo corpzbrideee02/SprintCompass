@@ -1,11 +1,11 @@
 const { buildSchema } = require("graphql");
 const schema = buildSchema(`
     type Query {
-        
+        users: [User]
     },
     type Mutation {
-        
-    },  
+        adduser(firstName: String, lastName: String, username: String, password: String,): User,
+    },
     type User {
         firstName: String
         lastName: String
@@ -28,8 +28,8 @@ const schema = buildSchema(`
         soIcan: String
         priority: Int
         initialRelativeEstimate: Int
-        initialCostEstimate: Double
-        tasks: [Subtasks]
+        initialCostEstimate: Float
+        tasks: [Subtask]
     },
     type Sprint {
         userStories: [UserStory]
@@ -45,7 +45,7 @@ const schema = buildSchema(`
         velocity: Int
         hoursToStoryPoint: Int
         totalEstimatedStoryPoints: Int
-        totalEstimatedCost: Double
+        totalEstimatedCost: Float
         users: [UserRole]
         blacklog: [UserStory]
     },
