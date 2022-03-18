@@ -16,6 +16,11 @@ const resolvers = {
         let db = await dbRtns.getDBInstance();
         return await dbRtns.findOne(db, users, {username: args.username, password: args.password})
     },
+    updateuserprojects: async (args) => {
+        let db = await dbRtns.getDBInstance();
+        let results = await dbRtns.updateOne(db, users, {username: args.username}, {projects:args.projects});
+        return  results.lastErrorObject.updatedExisting ? await dbRtns.findOne(db, users, {username: args.username}) : null;
+    },
 };
 
  module.exports = { resolvers };

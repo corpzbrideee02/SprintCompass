@@ -37,4 +37,7 @@ const findAll = (db, coll, criteria, projection) =>
 
 const findUniqueValues = (db, coll, field) => db.collection(coll).distinct(field);
 
-module.exports = { getDBInstance, addOne, deleteAll, findOne, findAll, findUniqueValues };
+const updateOne = (db, coll, criteria, projection) =>
+    db.collection(coll).findOneAndUpdate(criteria, { $set: projection}, {rawResult: true} );
+
+module.exports = { getDBInstance, addOne, deleteAll, findOne, findAll, findUniqueValues, updateOne };

@@ -6,13 +6,22 @@ const schema = buildSchema(`
     },
     type Mutation {
         adduser(firstName: String, lastName: String, username: String, password: String,): User,
+        updateuserprojects(username: String, projects: [UserProjectInput]): User
+    },
+    input UserProjectInput {
+        project: String
+        role: String
+    },
+    type UserProject {
+        project: String
+        role: String
     },
     type User {
         firstName: String
         lastName: String
         username: String
         password: String
-        projects: [String]
+        projects: [UserProject]
     },
     type UserRole {
         user: String
