@@ -51,6 +51,14 @@ const Login = () => {
     }
   }
 
+  const handleUsernameInput = (e) => {
+    setState({ username: e.target.value });
+  };
+
+  const handlePasswordInput = (e) => {
+    setState({ password: e.target.value });
+  };
+
   return (
     <div className="section-container">
       <div className="login-container">
@@ -58,6 +66,7 @@ const Login = () => {
           <div className="input-container">
             <label className="input-label">Username</label>
             <TextField
+              onChange={handleUsernameInput}
               name="email"
               id="email"
               variant="outlined"
@@ -68,6 +77,7 @@ const Login = () => {
 
             <label className="input-label">Password</label>
             <TextField
+              onChange={handlePasswordInput}
               name="password"
               id="password"
               variant="outlined"
