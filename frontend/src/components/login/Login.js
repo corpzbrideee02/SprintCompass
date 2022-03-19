@@ -23,22 +23,16 @@ const Login = () => {
       password: state.password,
     };
 
-    let myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/json");
 
     try {
-      let query = JSON.stringify({
-        query: `mutation {userlogin(username: "${user.username}", password: "${user.password}" )
-                {name, password}}`,
-      });
-
       let response = await fetch("http://localhost:5000/graphql", {
         method: "POST",
         headers: {
           "Content-Type": "application/json; charset=utf-8",
         },
-        body: query,
+        body: JSON.stringify({query: `query {userlogin(username: "${user.username}", password: "${user.password}"){username,password}}`})
       });
+
 
       let json = await response.json();
       if (json.data != null) { //Success?
