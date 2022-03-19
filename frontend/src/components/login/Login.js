@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useReducer, useState} from "react";
 
 import { Paper, Button, TextField } from "@mui/material";
 
@@ -6,6 +6,57 @@ import { Link } from "react-router-dom";
 import "./Login.css";
 
 const Login = () => {
+
+  const initialState = {
+    username: "",
+    password: "",
+    success: false,
+  };
+
+  const reducer = (state, newState) => ({ ...state, ...newState });
+  const [state, setState] = useReducer(reducer, initialState);
+
+  const onLoginBtnClicked = async () => {
+
+    let user= {
+      username: state.username,
+      password: state.password,
+    };
+
+    let myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+
+    try {
+      let query = JSON.stringify({
+        query: `mutation {userlogin(username: "${user.username}", password: "${user.password}" )
+                {name, password}}`,
+      });
+
+      let response = await fetch("http://localhost:5000/graphql", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json; charset=utf-8",
+        },
+        body: query,
+      });
+
+      let json = await response.json();
+      if (json.data != null) { //Success?
+        setState({
+          success: true,
+        });
+      }
+
+      setState({
+        username: "",
+        password: "",
+      });
+    }
+    catch (error) {
+      console.log(error);
+    }
+  }
+
   return (
     <div className="section-container">
       <div className="login-container">
@@ -31,7 +82,7 @@ const Login = () => {
               required={true}
             />
             <Link to="/dashboard"> {/* will only proceed to dashboard if user is authenticated */}
-              <Button type="submit" fullWidth variant="contained" size="large">
+              <Button type="submit" fullWidth variant="contained" size="large" onClick={onLoginBtnClicked}>
                 Sign In
               </Button>
             </Link>
@@ -57,3 +108,15 @@ const Login = () => {
   );
 };
 export default Login;
+
+//TODO: Put this in logic area
+/*const ConditionalLink = ({ children, to, condition }) => (!!condition && to)
+    ? <Link to={to}>{children}</Link>
+    : <>{children}</>;*/
+
+//TODO: Put this in the jsx
+/*<ConditionalLink to="/path" condition={state.success == true}>
+  <Button type="submit" fullWidth variant="contained" size="large" onClick={onLoginBtnClicked}>
+    Sign In
+  </Button>
+</ConditionalLink>*/
