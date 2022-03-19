@@ -35,7 +35,7 @@ const Login = () => {
 
 
       let json = await response.json();
-      if (json.data != null) { //Success?
+      if (json.data.username == user.username && json.data.password == user.password) { //Success
         setState({
           success: true,
         });
