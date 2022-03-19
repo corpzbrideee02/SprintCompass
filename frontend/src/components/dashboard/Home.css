@@ -1,0 +1,10 @@
+.titlePage{
+text-align: center;
+padding: 1em;
+font-size:x-large;
+
+}
+.addButton{
+    float: right;
+    margin:20px;
+}

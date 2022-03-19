@@ -6,6 +6,8 @@ import Login from "./components/login/Login";
 import Register from "./components/register/Register";
 
 import Dashboard from "./components/dashboard/Home";
+
+import ProjectHome from "./components/project/ProjectHome";
 import {
   Toolbar,
   AppBar,
@@ -88,6 +90,7 @@ const App = () => {
             <Route path="/login" element={<Login />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/register" element={<Register />} />
+            <Route path="/project" element={<ProjectHome />} />
           </Routes>
         </div>
       </Card>
