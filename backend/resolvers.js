@@ -1,10 +1,10 @@
 const dbRtns = require("./dbroutines");
-const { users, projects } = require("./config");
+const { users, teams, projects, } = require("./config");
 
 const resolvers = {
     adduser: async (args) => {
         let db = await dbRtns.getDBInstance();
-        let user = { firstName: args.firstName, lastName: args.lastName, username: args.username, password: args.password, teams: [], projects: []};
+        let user = { firstName: args.firstName, lastName: args.lastName, email: args.email, email: args.email, password: args.password, teams: [], projects: [] };
         let results = await dbRtns.addOne(db, users, user);
         return results.acknowledged ? user : null;
     },
@@ -14,24 +14,45 @@ const resolvers = {
     },
     userlogin: async args => {
         let db = await dbRtns.getDBInstance();
-        return await dbRtns.findOne(db, users, {username: args.username, password: args.password})
+        return await dbRtns.findOne( db, users, { email: args.email, password: args.password } )
     },
     updateuserteams: async (args) => {
         let db = await dbRtns.getDBInstance();
-        let results = await dbRtns.updateOne(db, users, {username: args.username}, {teams: args.teams});
-        return  results.lastErrorObject.updatedExisting ? await dbRtns.findOne(db, users, {username: args.username}) : null;
+        let results = await dbRtns.updateOne( db, users, { email: args.email }, { teams: args.teams } );
+        return  results.lastErrorObject.updatedExisting ? await dbRtns.findOne( db, users, { email: args.email } ) : null;
     },
     updateuserprojects: async (args) => {
         let db = await dbRtns.getDBInstance();
-        let results = await dbRtns.updateOne(db, users, {username: args.username}, {projects: args.projects});
-        return  results.lastErrorObject.updatedExisting ? await dbRtns.findOne(db, users, {username: args.username}) : null;
+        let results = await dbRtns.updateOne( db, users, { email: args.email }, { projects: args.projects } );
+        return  results.lastErrorObject.updatedExisting ? await dbRtns.findOne(db, users, { email: args.email } ) : null;
+    },
+    addteam: async (args) => {
+        let db = await dbRtns.getDBInstance();
+        let team = { name: args.name, members: args.members, projects: [] };
+        let results = await dbRtns.addOne(db, teams, team);
+        return results.acknowledged ? team : null;
+    },
+    teams: async () => {
+        let db = await dbRtns.getDBInstance();
+        return await dbRtns.findAll(db, teams, {}, {})
+    },
+    updateteammembers: async (args) => {
+        let db = await dbRtns.getDBInstance();
+        let results = await dbRtns.updateOne( db, teams, {name: args.name }, { members: args.members } );
+        return  results.lastErrorObject.updatedExisting ? await dbRtns.findOne(db, teams, { name: args.name } ) : null;
+    },
+    updateteamprojects: async (args) => {
+        let db = await dbRtns.getDBInstance();
+        let results = await dbRtns.updateOne( db, teams, {name: args.name }, { projects: args.projects } );
+        return  results.lastErrorObject.updatedExisting ? await dbRtns.findOne(db, teams, { name: args.name } ) : null;
     },
     addproject: async (args) => {
         let db = await dbRtns.getDBInstance();
         let project = { teamName: args.teamName, projectName: args.projectName, startDate: args.startDate, 
                         velocity: args.velocity, hoursToStoryPoint: args.hoursToStoryPoint,
-                        totalEstimatedStoryPoints: 0, totalEstimatedCost: args.totalEstimatedCost,
-                        users: args.users, backlog: [], sprints: [] };
+                        totalEstimatedStoryPoints: args.totalEstimatedStoryPoints, 
+                        totalEstimatedCost: args.totalEstimatedCost,
+                        team: args.team, backlog: [], sprints: [] };
         let results = await dbRtns.addOne(db, projects, project);
         return results.acknowledged ? project : null;
     },
