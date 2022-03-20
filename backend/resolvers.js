@@ -26,6 +26,19 @@ const resolvers = {
         let results = await dbRtns.updateOne(db, users, {username: args.username}, {projects: args.projects});
         return  results.lastErrorObject.updatedExisting ? await dbRtns.findOne(db, users, {username: args.username}) : null;
     },
+    addproject: async (args) => {
+        let db = await dbRtns.getDBInstance();
+        let project = { teamName: args.teamName, projectName: args.projectName, startDate: args.startDate, 
+                        velocity: args.velocity, hoursToStoryPoint: args.hoursToStoryPoint,
+                        totalEstimatedStoryPoints: 0, totalEstimatedCost: args.totalEstimatedCost,
+                        users: args.users, backlog: [], sprints: [] };
+        let results = await dbRtns.addOne(db, projects, project);
+        return results.acknowledged ? project : null;
+    },
+    projects: async () => {
+        let db = await dbRtns.getDBInstance();
+        return await dbRtns.findAll(db, projects, {}, {})
+    },
 };
 
  module.exports = { resolvers };
