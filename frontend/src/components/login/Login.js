@@ -23,25 +23,19 @@ const Login = () => {
       password: state.password,
     };
 
-    let myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/json");
 
     try {
-      let query = JSON.stringify({
-        query: `mutation {userlogin(username: "${user.username}", password: "${user.password}" )
-                {name, password}}`,
-      });
-
       let response = await fetch("http://localhost:5000/graphql", {
         method: "POST",
         headers: {
           "Content-Type": "application/json; charset=utf-8",
         },
-        body: query,
+        body: JSON.stringify({query: `query {userlogin(username: "${user.username}", password: "${user.password}"){username,password}}`})
       });
 
+
       let json = await response.json();
-      if (json.data != null) { //Success?
+      if (json.data.username == user.username && json.data.password == user.password) { //Success
         setState({
           success: true,
         });
@@ -57,6 +51,14 @@ const Login = () => {
     }
   }
 
+  const handleUsernameInput = (e) => {
+    setState({ username: e.target.value });
+  };
+
+  const handlePasswordInput = (e) => {
+    setState({ password: e.target.value });
+  };
+
   return (
     <div className="section-container">
       <div className="login-container">
@@ -64,6 +66,7 @@ const Login = () => {
           <div className="input-container">
             <label className="input-label">Username</label>
             <TextField
+              onChange={handleUsernameInput}
               name="email"
               id="email"
               variant="outlined"
@@ -74,6 +77,7 @@ const Login = () => {
 
             <label className="input-label">Password</label>
             <TextField
+              onChange={handlePasswordInput}
               name="password"
               id="password"
               variant="outlined"
