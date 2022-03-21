@@ -26,9 +26,9 @@ const ProjectHome = () => {
       <div className="homePage">
         <div className="titlePage">Project</div>
         <div className="propertiesTextLabel">
-          Project Name: {project.projName}
+          Project Name: {project.project}
         </div>
-        <div className="propertiesTextLabel">Team Name: {project.teamName}</div>
+        <div className="propertiesTextLabel">Team Name: {project.team}</div>
         <div className="addButton">
           <Button variant="contained">Add User Story</Button>
         </div>
@@ -57,7 +57,7 @@ const ProjectHome = () => {
                   </TableCell>
                 </TableRow>
               </TableHead>
-              {project.projects != undefined ? (
+              {project.projects !== undefined ? (
               <TableBody>
                 {project.projects.map((row, index) => (
                   <TableRow key={index} hover>

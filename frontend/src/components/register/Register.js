@@ -1,16 +1,16 @@
-import React from "react";
-
-import { Paper, Button, TextField, Snackbar } from "@mui/material";
+import React ,{useReducer} from "react";
+import { Paper, Button, TextField,} from "@mui/material";
 import "./Register.css";
-
 import { Link } from "react-router-dom";
+import loginRegisterServices from "../../services/loginRegisterService";
 
-const Register = () => {
+
+const Register = (props) => {
 
   const initialState = {
     showMsg: false,
     snackbarMsg: "",
-    username: "",
+    email: "",
     password: "",
     firstname: "",
     lastname: "",
@@ -19,55 +19,38 @@ const Register = () => {
   const reducer = (state, newState) => ({ ...state, ...newState });
   const [state, setState] = useReducer(reducer, initialState);
 
+  const handleRegister =()=>{
+    setState({
+      email: "",
+      password: "",
+      firstname: "",
+      lastname: ""});
+  }
+
+  const emptyorundefined =
+  state.email === undefined ||
+  state.email === "" ||
+  state.password === null ||
+  state.password === ""||
+  state.firstname === null ||
+  state.firstname === ""||
+  state.lastname === null ||
+  state.lastname=== "";
+
   const onRegisterClick = async () => {
     let user = {
       firstname: state.firstname,
       lastname: state.lastname,
-      username: state.username,
+      email: state.email,
       password: state.password,
     };
 
-    let myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/json");
-
-    try {
-      let query = JSON.stringify({
-        query: `mutation {adduser(firstName: "${user.firstname}", lastName: "${user.lastname}", username: "${user.username}", password: "${user.password}" )
-                {firstName, lastName, username, password}}`,
-      });
-
-      let response = await fetch("http://localhost:5000/graphql", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json; charset=utf-8",
-        },
-        body: query,
-      });
-
-      let json = await response.json();
-
-      setState({
-        showMsg: true,
-        snackbarMsg: `User ${json.data.adduser.firstname} added!`,
-        username: "",
-        password: "",
-        firstname: "",
-        lastname: "",
-      });
-
-    }
-    catch (error) {
-      setState({
-        snackbarMsg: `${error.message} - user failed to register`,
-        showMsg: true,
-      });
-    }
-
+    loginRegisterServices.registerUser(props,user,handleRegister);
   };
 
 
-  const handleUsernameInput = (e) => {
-    setState({ username: e.target.value });
+  const handleEmailInput = (e) => {
+    setState({ email: e.target.value });
   };
 
   const handlePasswordInput = (e) => {
@@ -82,9 +65,6 @@ const Register = () => {
     setState({ lastname: e.target.value });
   };
 
-  const snackbarClose = () => {
-    setState({ showMsg: false });
-  };
 
   return (
     <div className="register-background">
@@ -113,9 +93,9 @@ const Register = () => {
                 required={true}
               />
 
-              <label className="input-label">Username</label>
+              <label className="input-label">Email</label>
               <TextField
-                onChange={handleUsernameInput}
+                onChange={handleEmailInput}
                 name="email"
                 id="email"
                 variant="outlined"
@@ -134,7 +114,7 @@ const Register = () => {
                 placeholder="xxxxxxxxxxxxxxxxx"
                 required={true}
               />
-              <Button type="submit" fullWidth variant="contained" size="large" onClick={onRegisterClick}>
+              <Button type="submit" fullWidth variant="contained" size="large" onClick={onRegisterClick} disabled={emptyorundefined}>
                 Register
               </Button>
 
@@ -153,12 +133,6 @@ const Register = () => {
                 </Link>
               </div>
             </div>
-            <Snackbar
-                open={state.showMsg}
-                message={state.snackbarMsg}
-                autoHideDuration={4000}
-                onClose={snackbarClose}
-            />
           </Paper>
         </div>
       </div>

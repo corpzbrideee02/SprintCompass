@@ -1,72 +1,63 @@
-import React, {useReducer, useState} from "react";
-
+import React, {useReducer} from "react";
 import { Paper, Button, TextField } from "@mui/material";
-
-import { Link } from "react-router-dom";
+import { Link,useNavigate } from "react-router-dom";
 import "./Login.css";
 
-const Login = () => {
+import loginRegisterServices from "../../services/loginRegisterService";
+const Login = (props) => {
 
   const initialState = {
-    username: "",
+    email: "",
     password: "",
     success: false,
+    userInfo:null
+    
   };
 
   const reducer = (state, newState) => ({ ...state, ...newState });
   const [state, setState] = useReducer(reducer, initialState);
 
-  const onLoginBtnClicked = async () => {
+  const navigate = useNavigate();
 
+  const loginSuccess=(data)=>{
+    //console.log(data);
+    setState({success: true,userInfo:data});
+    navigate('/dashboard', { state: { userInfo:data}}); 
+    props.nameFromChild({firstName:data.firstName, lastName:data.lastName});
+  };
+  
+
+  const onLoginBtnClicked = async () => {
     let user= {
-      username: state.username,
+      email: state.email,
       password: state.password,
     };
+    loginRegisterServices.userLogin(props,user,loginSuccess);
+  };
 
-
-    try {
-      let response = await fetch("http://localhost:5000/graphql", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json; charset=utf-8",
-        },
-        body: JSON.stringify({query: `query {userlogin(username: "${user.username}", password: "${user.password}"){username,password}}`})
-      });
-
-
-      let json = await response.json();
-      if (json.data.username == user.username && json.data.password == user.password) { //Success
-        setState({
-          success: true,
-        });
-      }
-
-      setState({
-        username: "",
-        password: "",
-      });
-    }
-    catch (error) {
-      console.log(error);
-    }
-  }
-
-  const handleUsernameInput = (e) => {
-    setState({ username: e.target.value });
+  const handleEmailInput = (e) => {
+    setState({ email: e.target.value });
   };
 
   const handlePasswordInput = (e) => {
     setState({ password: e.target.value });
   };
 
+  const emptyorundefined =
+  state.email === undefined ||
+  state.email === "" ||
+  state.password === null ||
+  state.password === "";
+
+
   return (
     <div className="section-container">
       <div className="login-container">
         <Paper elevation={10} className="paper-style">
           <div className="input-container">
-            <label className="input-label">Username</label>
+            <label className="input-label">Email</label>
             <TextField
-              onChange={handleUsernameInput}
+              onChange={handleEmailInput}
               name="email"
               id="email"
               variant="outlined"
@@ -85,11 +76,10 @@ const Login = () => {
               placeholder="xxxxxxxxxxxxxxxxx"
               required={true}
             />
-            <Link to="/dashboard"> {/* will only proceed to dashboard if user is authenticated */}
-              <Button type="submit" fullWidth variant="contained" size="large" onClick={onLoginBtnClicked}>
+            
+              <Button type="submit" fullWidth variant="contained" size="large" onClick={onLoginBtnClicked} disabled={emptyorundefined}>
                 Sign In
               </Button>
-            </Link>
 
             <hr />
             <div className="register-section">

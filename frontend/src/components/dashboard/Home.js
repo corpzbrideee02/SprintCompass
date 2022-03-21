@@ -13,9 +13,13 @@ import {
 } from "@mui/material";
 
 import "./Home.css";
-import { Link } from "react-router-dom";
+import { Link,useLocation } from "react-router-dom";
 
 const Home = (props) => {
+  let location = useLocation();
+
+  let user = location.state.userInfo;
+  //console.log(user);
   /* replace somejon by props.users */
   const somejson = [
     {
@@ -65,12 +69,16 @@ const Home = (props) => {
                   User Role
                 </TableCell>
                 <TableCell align="center" variant="head">
+                  Team Name
+                </TableCell>
+                <TableCell align="center" variant="head">
                   Actions
                 </TableCell>
               </TableRow>
             </TableHead>
+            {(user.projects.length!==0 ) ? (
             <TableBody>
-              {somejson.map((row, index) => (
+              {user.projects.map((row, index) => (
                 <TableRow key={index} hover>
                   <TableCell
                     component="th"
@@ -78,7 +86,7 @@ const Home = (props) => {
                     color="primary"
                     align="center"
                   >
-                    {row.projName}
+                    {row.project}
                   </TableCell>
                   <TableCell
                     component="th"
@@ -86,7 +94,15 @@ const Home = (props) => {
                     color="primary"
                     align="center"
                   >
-                    {row.userRole}
+                    {row.role}
+                  </TableCell>
+                  <TableCell
+                    component="th"
+                    scope="row"
+                    color="primary"
+                    align="center"
+                  >
+                    {row.team}
                   </TableCell>
 
                   <TableCell
@@ -109,6 +125,9 @@ const Home = (props) => {
                 </TableRow>
               ))}
             </TableBody>
+            ) : (
+              <div className="propertiesTextLabel">No Data found</div>
+          )}
           </Table>
         </TableContainer>
       </div>
