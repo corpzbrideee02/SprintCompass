@@ -1,7 +1,4 @@
-.phone{
-    margin-top: 6px;
-  }
-  
+
   input{
     cursor: text;
     display: inline-flex;
@@ -39,8 +36,7 @@
 
 
   .register-background{
-    height: 100vh;
-    /* background-color: #093B60; */
+    /* height: 100vh; */
     margin: 0;
     padding: 1.5rem;
     display: flex;
@@ -76,7 +72,7 @@
   }
   
   .input-field {
-    width: 100%;
+    margin-bottom: 1em !important;
   } 
   
   

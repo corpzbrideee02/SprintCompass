@@ -71,6 +71,7 @@ const Login = (props) => {
               onChange={handlePasswordInput}
               name="password"
               id="password"
+              type="password"
               variant="outlined"
               className="input-field"
               placeholder="xxxxxxxxxxxxxxxxx"

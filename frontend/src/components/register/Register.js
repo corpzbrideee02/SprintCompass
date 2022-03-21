@@ -109,12 +109,13 @@ const Register = (props) => {
                 onChange={handlePasswordInput}
                 name="password"
                 id="password"
+                type="password"
                 variant="outlined"
                 className="input-field"
                 placeholder="xxxxxxxxxxxxxxxxx"
                 required={true}
               />
-              <Button type="submit" fullWidth variant="contained" size="large" onClick={onRegisterClick} disabled={emptyorundefined}>
+              <Button type="submit" fullWidth variant="contained" size="large" onClick={onRegisterClick} disabled={emptyorundefined} >
                 Register
               </Button>
 

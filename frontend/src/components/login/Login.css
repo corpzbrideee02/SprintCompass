@@ -4,7 +4,7 @@ hr {
 }
 
 .login-container {
-  width: 45%;
+  /* width: 45%; */
   display: flex;
   align-items: center;
   margin: 0;
@@ -12,10 +12,10 @@ hr {
   overflow: visible;
 }
 
-.form-styles{
+.form-styles {
   width: 100%;
-  display: flex; 
-  flex-direction: column; 
+  display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 }
@@ -44,26 +44,25 @@ hr {
   overflow: visible;
 }
 
-.register-section p{
+.register-section p {
   padding-bottom: 0.75rem;
 }
 
-.login-btn{
+.login-btn {
   width: 70%;
   margin: 1rem auto !important;
 }
-.register-btn{
+.register-btn {
   width: 70%;
 }
 
-.section-container{
-  width: 100vw;
-  height: 100vh;
+.section-container {
+  /* width: 100vw; */
+  /* height: 100vh; */
   display: flex;
   align-items: center;
   justify-content: center;
-  /* background-color: #093B60; */
-  margin: 0;
+  margin: 3em 0;
   padding: 0;
 }
 
@@ -77,63 +76,61 @@ hr {
   color: red;
 }
 
-
-@media only screen and (max-width: 500px)
-{
-  .login-container{
+@media only screen and (max-width: 500px) {
+  .login-container {
     width: 90vw;
   }
 
-  .input-field{
+  .input-field {
     width: 80%;
   }
 
-  .login-section{
+  .login-section {
     width: 80%;
   }
 
-  .input-label{
+  .input-label {
     width: 80%;
   }
 
-  .login-section{
+  .login-section {
     width: 80% !important;
     margin: 0 auto;
   }
 
-  .front-or{
+  .front-or {
     width: 80%;
     margin: 2rem auto;
   }
 
-  .input-container{
+  .input-container {
     width: 100%;
   }
 }
 
-@media only screen and (max-width: 768px){
-  .login-section{
+@media only screen and (max-width: 768px) {
+  .login-section {
     width: 90%;
     margin: 0 auto;
   }
 
-  .input-container{
+  .input-container {
     width: 100%;
   }
 
-  .login-container{
+  .login-container {
     width: 90%;
   }
 }
 
-@media only screen and (min-width: 1440px){
-  .login-container{
+@media only screen and (min-width: 1440px) {
+  .login-container {
     width: 40%;
   }
 }
 
-@media only screen and (min-width: 2560px){
-  .login-container{
+@media only screen and (min-width: 2560px) {
+  .login-container {
     width: 20%;
   }
 }
