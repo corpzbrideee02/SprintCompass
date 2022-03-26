@@ -4,20 +4,12 @@ import { ThemeProvider } from "@mui/material/styles";
 import theme from "./theme";
 import Login from "./components/login/Login";
 import Register from "./components/register/Register";
-
 import Dashboard from "./components/dashboard/Home";
-
 import ProjectHome from "./components/project/ProjectHome";
-import {
-  Toolbar,
-  AppBar,
-  Menu,
-  MenuItem,
-  Typography,
-  Card,
-  Snackbar,
-  Button,
-} from "@mui/material";
+import AddProject from "./components/project/AddProject";
+import AddNewTeam from "./components/team/AddNewTeam";
+
+import {Toolbar, AppBar, Menu,MenuItem,Typography,Card,Snackbar, Button,} from "@mui/material";
 
 import "./App.css";
 
@@ -98,6 +90,8 @@ const App = () => {
             <Route path="/login" element={<Login dataFromChild={msgFromChildComponents} nameFromChild={setUpName} />}   />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/register" element={<Register dataFromChild={msgFromChildComponents}/>} />
+            <Route path="/addnewteam" element={<AddNewTeam />} />
+            <Route path="/addproject" element={<AddProject />} />
             <Route path="/project" element={<ProjectHome />} />
             <Route path="/logout" element={<Login dataFromChild={msgFromChildComponents}/>} />
           </Routes>

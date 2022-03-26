@@ -1,0 +1,9 @@
+.buttonTeam{
+    width:50%;
+    margin: 1em !important;
+    font-size: 10px;
+    height: 50px;
+}
+.teamButtonContainer{
+    display: flex;
+}
