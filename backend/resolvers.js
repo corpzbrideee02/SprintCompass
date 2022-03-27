@@ -60,6 +60,16 @@ const resolvers = {
         let db = await dbRtns.getDBInstance();
         return await dbRtns.findAll(db, projects, {}, {})
     },
+    updateprojectbacklog: async (args) => {
+        let db = await dbRtns.getDBInstance();
+        let results = await dbRtns.updateOne( db, projects, {projectName: args.projectName }, { backlog: args.backlog } );
+        return  results.lastErrorObject.updatedExisting ? await dbRtns.findOne(db, projects, { projectName: args.projectName } ) : null;
+    },
+    updateprojectsprints: async (args) => {
+        let db = await dbRtns.getDBInstance();
+        let results = await dbRtns.updateOne( db, projects, {projectName: args.projectName }, { sprints: args.sprints } );
+        return  results.lastErrorObject.updatedExisting ? await dbRtns.findOne(db, projects, { projectName: args.projectName } ) : null;
+    },
 };
 
  module.exports = { resolvers };

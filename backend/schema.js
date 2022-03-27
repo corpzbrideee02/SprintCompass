@@ -14,6 +14,8 @@ const schema = buildSchema(`
         updateteammembers(name: String, members: [MemberRoleInput]): Team
         updateteamprojects(name: String, projects: [String]): Team
         addproject(teamName: String, projectName: String, startDate: String, hoursToStoryPoint: Int, velocity: Int, totalEstimatedStoryPoints: Int, totalEstimatedCost: Float, team: [MemberRoleInput] ): Project
+        updateprojectbacklog(projectName: String, backlog: [UserStoryInput]): Project
+        updateprojectsprints(projectName: String, sprints: [SprintInput]): Project
     },
     input ProjectRoleInput {
         project: String
@@ -50,10 +52,25 @@ const schema = buildSchema(`
         members: [MemberRole]
         projects: [String]
     },
+    input SubtaskInput {
+        description: String
+        member: String
+        status: String
+    },
     type Subtask {
         description: String
         member: String
         status: String
+    },
+    input UserStoryInput {
+        asA: String
+        iWantTo: String
+        soIcan: String
+        priority: Int
+        initialRelativeEstimate: Int
+        initialCostEstimate: Float
+        member: String
+        tasks: [SubtaskInput]
     },
     type UserStory {
         asA: String
@@ -62,8 +79,13 @@ const schema = buildSchema(`
         priority: Int
         initialRelativeEstimate: Int
         initialCostEstimate: Float
-        member: [String]
+        member: String
         tasks: [Subtask]
+    },
+    input SprintInput {
+        userStories: [UserStoryInput]
+        startDate: String
+        endDate: String
     },
     type Sprint {
         userStories: [UserStory]
