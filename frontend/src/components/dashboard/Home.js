@@ -6,33 +6,43 @@ import { Paper, TableContainer, TableCell, TableRow, Table, TableBody, TableHead
 import "./Home.css";
 import { Link, useLocation } from "react-router-dom";
 
+import projectServices from "../../services/projectService";
+
 const Home = (props) => {
   let location = useLocation();
 
   let user = location.state.userInfo;
-  //console.log(user);
+  console.log(user);
+
+ 
 
   return (
     <ThemeProvider theme={theme}>
       <div className="homePage">
         <div className="titlePage">Dashboard</div>
-
+        <div style={{display: "flow-root"}}>
+          
         <Link to={"/addproject"} state={{ user: user }}>
           <div className="addButton">
-            <Button variant="contained">Add Project</Button>
+            <Button variant="contained" style={{color:"#fff", backgroundColor:"rgb(10, 74, 89)"}}>Add Project</Button>
           </div>
         </Link>
 
 
         <Link to={"/addnewteam"} state={{ user: user }}>
           <div className="addButton">
-            <Button variant="contained">Add New Team</Button>
+            <Button variant="contained" style={{color:"#fff", backgroundColor:"rgb(10, 74, 89)"}}>Add New Team</Button>
           </div>
         </Link>
-        <TableContainer component={Paper}>
+
+        </div>
+        
+        <Paper style={{ padding: 20, height: "100vh" }}>
+        <div className="tableCustomHeader">  {`${user.firstName}'s Projects `} </div>
+        <TableContainer>
           <Table sx={{ minWidth: 350, padding: 20 }} aria-label="simple table">
             <TableHead>
-              <TableRow className="tableHead">
+              <TableRow>
                 <TableCell align="center" variant="head">Project Name</TableCell>
                 <TableCell align="center" variant="head"> User Role </TableCell>
                 <TableCell align="center" variant="head"> Team Name </TableCell>
@@ -47,7 +57,7 @@ const Home = (props) => {
                     <TableCell component="th" scope="row"  color="primary"  align="center" >  {row.role} </TableCell>
                     <TableCell  component="th" scope="row"  color="primary"  align="center">{row.team} </TableCell>
                     <TableCell  component="th"  scope="row"  color="primary" align="center" >
-                      <Link to={"/project"} state={{ selectedRow: row }}>
+                      <Link to={"/project"} state={{ selectedRow: row,user: user.email  }}>
                         <Button variant="contained" > View </Button>
                       </Link>
                     </TableCell>
@@ -61,16 +71,10 @@ const Home = (props) => {
         </TableContainer>
 
         {/* List of Teams Table  */}
-        <TableContainer component={Paper} style={{ marginTop: 300 }}>
+        <Paper style={{ padding: 20, marginTop:50 }}>
+        <div className="tableCustomHeader"> {`${user.firstName}'s Teams: `} </div>
+        <TableContainer>
           <Table sx={{ minWidth: 350, padding: 20 }} aria-label="simple table">
-            <TableHead>
-              <TableRow className="tableHead">
-                <TableCell align="center" variant="head">
-                  {`${user.firstName}'s Teams: `}
-                </TableCell>
-              </TableRow>
-            </TableHead>
-
             <TableBody>
               {user.teams.map((row, index) => (
                 <TableRow key={index} hover>
@@ -81,7 +85,8 @@ const Home = (props) => {
 
           </Table>
         </TableContainer>
-
+        </Paper>
+        </Paper>
 
       </div>
     </ThemeProvider>

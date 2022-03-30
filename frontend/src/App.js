@@ -8,6 +8,8 @@ import Dashboard from "./components/dashboard/Home";
 import ProjectHome from "./components/project/ProjectHome";
 import AddProject from "./components/project/AddProject";
 import AddNewTeam from "./components/team/AddNewTeam";
+import UpdateBacklog from "./components/productBacklog/UpdateBacklog";
+import AddBacklog from "./components/productBacklog/AddBacklog";
 
 import {Toolbar, AppBar, Menu,MenuItem,Typography,Card,Snackbar, Button,} from "@mui/material";
 
@@ -65,11 +67,11 @@ const App = () => {
               {" "}
               Sprint Compass{" "}
             </Typography>
-            {/* only visible if login is successful */}
+            {/* only visible if login is successful */} 
               {(state.firstName!==""&&state.lastName!=="")&&
               <>
               <label className="headerUsername">User: {state.firstName} {state.lastName}</label>
-              <Button variant="contained" color="primary" onClick={handleClick} style={{ marginLeft: "auto", paddingRight: "1vh" }}> Menu </Button>
+              <Button variant="contained" color="primary" onClick={handleClick} style={{ marginLeft: "auto", paddingRight: "1vh",color:"#fff", backgroundColor:"rgb(10, 74, 89)" }}> Menu </Button>
                 <Menu
                   id="simple-menu"
                   anchorEl={anchorEl}
@@ -93,6 +95,8 @@ const App = () => {
             <Route path="/addnewteam" element={<AddNewTeam />} />
             <Route path="/addproject" element={<AddProject />} />
             <Route path="/project" element={<ProjectHome />} />
+            <Route path="/addbacklog" element={<AddBacklog/>} />
+            <Route path="/updatebacklog" element={<UpdateBacklog/>} />
             <Route path="/logout" element={<Login dataFromChild={msgFromChildComponents}/>} />
           </Routes>
 

@@ -5,6 +5,21 @@ const METHOD = "POST";
 const HEADERS = { "Content-Type": "application/json; charset=utf-8" };
 
 const projectServices = {
+
+  fetchProjectsByUser: async (projectName,cb) => {
+    try {
+      let response = await fetch(GRAPHURL, {
+        method: METHOD,
+        headers: HEADERS,
+        body: JSON.stringify({ query: "query { projects {teamName, projectName, startDate, velocity, hoursToStoryPoint, totalEstimatedStoryPoints, totalEstimatedCost, team {firstName, lastName, email, role}, backlog { asA, iWantTo, soIcan, priority, initialRelativeEstimate, initialCostEstimate, tasks {description, member, status} }, sprints { userStories { asA, iWantTo, soIcan, priority, initialRelativeEstimate, initialCostEstimate, tasks {description, member, status} }, startDate, endDate } } } " }),
+      });
+      let json = await response.json();
+
+      cb(json.data.projects.find(e=>e.projectName===projectName));
+    } catch (error) {
+      console.log(error);
+    }
+  },
     addNewProject: async(project,cb)=>{
 
         console.log(project.team);

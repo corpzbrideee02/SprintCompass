@@ -1,0 +1,11 @@
+.tableCustomHeader{
+    text-align: center;
+    padding:10px;
+    background-color: #2d2d2d;
+    color:#fff;
+}
+.backlogs-container{
+display: flex;
+justify-content: center;
+align-items: center;
+}
