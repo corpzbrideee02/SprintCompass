@@ -1,0 +1,8 @@
+@import 'react-datepicker/dist/react-datepicker.css';
+
+.react-datepicker-popper {
+  z-index: 9999 !important;
+}
+.react-datepicker__input-container {
+ width: 100%,
+}

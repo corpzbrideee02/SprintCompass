@@ -65,6 +65,17 @@ const resolvers = {
         let results = await dbRtns.updateOne( db, projects, {projectName: args.projectName }, { backlog: args.backlog } );
         return  results.lastErrorObject.updatedExisting ? await dbRtns.findOne(db, projects, { projectName: args.projectName } ) : null;
     },
+    addnewsprint: async (args) => {
+
+        let db = await dbRtns.getDBInstance();
+
+        let project = await dbRtns.findOne(db, projects, { projectName: args.projectName });
+        console.log(project.sprints);
+        project.sprints.push({startDate: args.startDate, endDate: args.endDate, userStories: []});
+
+        let results = await dbRtns.updateOne( db, projects, {projectName: args.projectName }, { sprints: project.sprints } );
+        return  results.lastErrorObject.updatedExisting ? await dbRtns.findOne(db, projects, { projectName: args.projectName } ) : null;
+    },
     updateprojectsprints: async (args) => {
         let db = await dbRtns.getDBInstance();
         let results = await dbRtns.updateOne( db, projects, {projectName: args.projectName }, { sprints: args.sprints } );

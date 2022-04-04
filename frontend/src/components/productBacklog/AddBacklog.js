@@ -1,5 +1,5 @@
 import React, { useEffect, useReducer, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import backlogServices from "../../services/backlogServices";
 
 import { Paper, Autocomplete, TextField, Button } from "@mui/material";
@@ -10,6 +10,7 @@ import "./backlog.css"
 
 const AddBacklog = () => {
     let location = useLocation();
+    let navigate = useNavigate();
     const project = location.state.project;
     //const user =location.state.user;
     console.log(project);
@@ -52,6 +53,7 @@ const AddBacklog = () => {
             allBackLogs: project.backlog,
         }
         backlogServices.addNewBacklog(backlogToAdd,handleAfterAddClick);
+        navigate(-1);
     }
 
     //NOTE: disabled Add button if not all fields are entered

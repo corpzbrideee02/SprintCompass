@@ -1,5 +1,7 @@
 import React, { useEffect, useReducer, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import DatePicker from "react-datepicker";
+import "./datepicker.css"
 import { Paper, Autocomplete, TextField, Button} from "@mui/material";
 import teamServices from "../../services/teamService";
 import projectServices from "../../services/projectService";
@@ -8,11 +10,12 @@ import { ThemeProvider } from "@mui/material/styles";
 
 const AddProject = () => {
   let location = useLocation();
+  let navigate = useNavigate();
   const user = location.state.user;
   const initialState = {
     teams: [],
     projectName: "",
-    startDate: "",
+    startDate: false,
     velocity: "",
     hoursToStoryPoint: 0,
     totalEstimatedStoryPoints: 0,
@@ -42,8 +45,8 @@ const AddProject = () => {
   const handleProjectNameInput = (e) => {
     setState({ projectName: e.target.value });
   };
-  const handleStartDateInput = (e) => {
-    setState({ startDate: e.target.value });
+  const handleStartDateInput = (value) => {
+    setState({ startDate: value });
   };
   const handleVelocityInput = (e) => {
     setState({ velocity: e.target.value });
@@ -69,13 +72,14 @@ const AddProject = () => {
     let projectToAdd = {
       team: teamSelectedToAdd,
       projectName: state.projectName,
-      startDate: state.startDate,
+      startDate: state.startDate.toLocaleDateString(),
       velocity: parseInt(state.velocity),
       hoursToStoryPoint: parseInt(state.hoursToStoryPoint),
       totalEstimatedStoryPoints: parseInt(state.totalEstimatedStoryPoints),
       totalEstimatedCost: parseFloat(state.totalEstimatedCost),
     };
     projectServices.addNewProject(projectToAdd, handleAfterCreateNewProj);
+    navigate(-1);
   };
 
   const emptyorundefined =
@@ -105,7 +109,8 @@ const AddProject = () => {
               <div className="input-container">
                 <TextField required onChange={handleProjectNameInput} label="Project Name" value={state.projectName} variant="outlined" className="input-field" />
 
-                <TextField required onChange={handleStartDateInput} label="Start Date" value={state.startDate} variant="outlined" className="input-field" />
+                {/* <TextField required onChange={handleStartDateInput} label="Start Date" value={state.startDate} variant="outlined" className="input-field" /> */}
+                <DatePicker required selected={state.startDate} onChange={(date) => handleStartDateInput(date)} minDate={new Date()} placeholderText="Start Date *" variant="outlined" className="input-field" />
 
                 <TextField required onChange={handleVelocityInput} label="Velocity" value={state.velocity} variant="outlined" type="number" className="input-field" />
 

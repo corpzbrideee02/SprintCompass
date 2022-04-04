@@ -45,7 +45,29 @@ const backlogServices = {
       console.log(error);
       //props.dataFromChild(`${error.message} - advisory not added`);
     }
-},
+  },
+
+  addNewSprint: async(project,cb)=>{
+    try {
+
+      let response2 = await fetch(GRAPHURL, {
+        method: METHOD,
+        headers: HEADERS,
+        body: JSON.stringify({
+          query: `mutation { addnewsprint( projectName: "${project.projectName}", startDate: "${project.startDate}", endDate: "${project.endDate}" )
+          {sprints {startDate, endDate, userStories {asA, iWantTo, soIcan, priority, initialRelativeEstimate, initialCostEstimate, member, tasks {description, member, status} } } } }`,
+        }), 
+      });
+      let json2 = await response2.json();
+      console.log(json2.data.addnewsprint);
+      console.log("added successfully");
+      cb(); //trigger 
+    } catch (error) {
+      console.log("something went wrong");
+      console.log(error);
+      //props.dataFromChild(`${error.message} - advisory not added`);
+    }
+  },
 
 };
 

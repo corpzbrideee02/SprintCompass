@@ -64,11 +64,11 @@ const ProjectHome = () => {
             <Table sx={{ minWidth: 350, padding: 20 }} aria-label="simple table" >
               <TableHead>
                 <TableRow className="tableHead"> {``}
-                  <TableCell align="center" variant="head"> {`Priority`} </TableCell>
-                  <TableCell align="center" variant="head"> {`Product Backlogs`} </TableCell>
-                  <TableCell align="center" variant="head"> {`Initial Relative Estimate `}</TableCell>
-                  <TableCell align="center" variant="head">  {`Initial Cost Estimate `}</TableCell>
-                  <TableCell align="center" variant="head"> {`Actions `}</TableCell>
+                  <TableCell align="center" variant="head"><b>{`Priority`}</b></TableCell>
+                  <TableCell align="center" variant="head"><b>{`Product Backlogs`}</b> </TableCell>
+                  <TableCell align="center" variant="head"><b>{`Initial Relative Estimate `}</b></TableCell>
+                  <TableCell align="center" variant="head"><b>{`Initial Cost Estimate `}</b></TableCell>
+                  <TableCell align="center" variant="head"><b>{`Actions `}</b></TableCell>
                 </TableRow>
               </TableHead>
 
@@ -111,17 +111,23 @@ const ProjectHome = () => {
         </Paper>
 
                 {/* NOTE: Will change this to project's sprints  */}
+                <div className="addButton">
+        <Link to={"/addsprint"} state={{ project: state.projects, user: project.user}}>
+          <Button variant="contained" style={{color:"#fff", backgroundColor:"rgb(10, 74, 89)"}}> Add Sprint</Button>
+          </Link>
+        </div>
         <Paper style={{ padding: 20 }}>
         <div className="tableCustomHeader"> Sprints</div>
           <TableContainer >
             <Table sx={{ minWidth: 350, padding: 20 }} aria-label="simple table" >
               <TableHead>
                 <TableRow className="tableHead"> {``}
-                  <TableCell align="center" variant="head"> {`Number`} </TableCell>
-                  <TableCell align="center" variant="head"> {`Product Backlogs`} </TableCell>
-                  <TableCell align="center" variant="head"> {`Start Date`}</TableCell>
-                  <TableCell align="center" variant="head">  {`End Date`}</TableCell>
-                  <TableCell align="center" variant="head"> {`Actions `}</TableCell>
+                <TableCell align="center" variant="head"><b>{`Sprint`}</b></TableCell>
+                  {/* <TableCell align="center" variant="head"><b>{`Number`}</b></TableCell>
+                  <TableCell align="center" variant="head"><b>{`Product Backlogs`}</b></TableCell> */}
+                  <TableCell align="center" variant="head"><b>{`Start Date`}</b></TableCell>
+                  <TableCell align="center" variant="head"><b>{`End Date`}</b></TableCell>
+                  <TableCell align="center" variant="head"><b>{`Actions `}</b></TableCell>
                 </TableRow>
               </TableHead>
 
@@ -129,14 +135,17 @@ const ProjectHome = () => {
                 <TableBody>
                   {state.projects.sprints.map((row, index) => (
                     <TableRow key={index} hover>
-                      <TableCell  component="th" scope="row"  color="primary"  align="center" >
+                      <TableCell  component="th"  scope="row"  color="primary"  align="center" >
+                      {index+1}
+                      </TableCell>
+                      {/* <TableCell  component="th" scope="row"  color="primary"  align="center" >
                         1
                       </TableCell>
                       {row.userStories.map((row2, index) => (
                         <TableCell key={index} component="th" scope="row"  color="primary"  align="center" >
                         {row2.iWantTo}
                       </TableCell>
-                      ))}
+                      ))} */}
 
                     
                       <TableCell  component="th"  scope="row"  color="primary"  align="center" >
