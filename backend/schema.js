@@ -5,6 +5,7 @@ const schema = buildSchema(`
         userlogin(email: String, password: String): User
         teams: [Team]
         projects: [Project]
+        projectbyname(projectName: String): Project
     },
     type Mutation {
         adduser(firstName: String, lastName: String, email: String, password: String,): User,

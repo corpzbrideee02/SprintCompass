@@ -12,7 +12,7 @@ const resolvers = {
         let db = await dbRtns.getDBInstance();
         return await dbRtns.findAll(db, users, {}, {})
     },
-    userlogin: async args => {
+    userlogin: async (args) => {
         let db = await dbRtns.getDBInstance();
         return await dbRtns.findOne( db, users, { email: args.email, password: args.password } )
     },
@@ -81,6 +81,10 @@ const resolvers = {
         let results = await dbRtns.updateOne( db, projects, {projectName: args.projectName }, { sprints: args.sprints } );
         return  results.lastErrorObject.updatedExisting ? await dbRtns.findOne(db, projects, { projectName: args.projectName } ) : null;
     },
+    projectbyname: async (args) => {
+        let db = await dbRtns.getDBInstance();
+        return await dbRtns.findOne( db, projects, { projectName: args.projectName } )
+    }
 };
 
  module.exports = { resolvers };
