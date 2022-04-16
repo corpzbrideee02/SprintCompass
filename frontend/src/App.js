@@ -12,6 +12,8 @@ import UpdateBacklog from "./components/productBacklog/UpdateBacklog";
 import AddBacklog from "./components/productBacklog/AddBacklog";
 import AddSprint from "./components/productBacklog/AddSprint";
 import ViewSprint from "./components/productBacklog/ViewSprint";
+import UpdateSubtask from "./components/subtask/UpdateSubtask";
+import AddSubtask from "./components/subtask/AddSubtask";
 
 import {Toolbar, AppBar, Menu,MenuItem,Typography,Card,Snackbar, Button,} from "@mui/material";
 
@@ -101,6 +103,8 @@ const App = () => {
             <Route path="/updatebacklog" element={<UpdateBacklog/>} />
             <Route path="/addsprint" element={<AddSprint/>} />
             <Route path="/viewsprint" element={<ViewSprint/>} />
+            <Route path="/addsubtask" element={<AddSubtask/>} />
+            <Route path="/updatesubtask" element={<UpdateSubtask/>} />
             <Route path="/logout" element={<Login dataFromChild={msgFromChildComponents}/>} />
           </Routes>
 

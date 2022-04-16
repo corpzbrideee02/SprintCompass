@@ -20,7 +20,7 @@ const backlogServices = {
       console.log(error);
     }
   },
-
+//NOTE: updated backlog's task (04-15-22)
   addNewBacklog: async(project,cb)=>{
     try {
 
@@ -33,7 +33,7 @@ const backlogServices = {
         body: JSON.stringify({
           query: `mutation{updateprojectbacklog(
             projectName: "${project.projectName}",
-            backlog:  [${project.allBackLogs.map(x=>`{asA: "${x.asA}", iWantTo: "${x.iWantTo}", soIcan: "${x.soIcan}", tasks:[], priority: ${x.priority}, initialRelativeEstimate:${x.initialRelativeEstimate}, initialCostEstimate:${x.initialCostEstimate}}`)}]
+            backlog:  [${project.allBackLogs.map(x=>`{asA: "${x.asA}", iWantTo: "${x.iWantTo}", soIcan: "${x.soIcan}", priority: ${x.priority}, initialRelativeEstimate:${x.initialRelativeEstimate}, initialCostEstimate:${x.initialCostEstimate}}`)}]
             ){backlog { asA, iWantTo, soIcan, priority, initialRelativeEstimate, initialCostEstimate, member, tasks {description, member, status} }}}`,
         }), 
       });

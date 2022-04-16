@@ -61,14 +61,14 @@ const ProjectHome = () => {
         <Paper style={{ padding: 20 }}>
         <div className="tableCustomHeader"> Product Backlogs </div>
           <TableContainer >
-            <Table sx={{ minWidth: 350, padding: 20 }} aria-label="simple table" >
+            <Table sx={{ minWidth: 350,  }} aria-label="simple table" >
               <TableHead>
                 <TableRow className="tableHead"> {``}
-                  <TableCell align="center" variant="head"><b>{`Priority`}</b></TableCell>
-                  <TableCell align="center" variant="head"><b>{`Product Backlogs`}</b> </TableCell>
-                  <TableCell align="center" variant="head"><b>{`Initial Relative Estimate `}</b></TableCell>
-                  <TableCell align="center" variant="head"><b>{`Initial Cost Estimate `}</b></TableCell>
-                  <TableCell align="center" variant="head"><b>{`Actions `}</b></TableCell>
+                  <TableCell size="small" align="center" variant="head"><b>{`Priority`}</b></TableCell>
+                  <TableCell size="small" align="center" variant="head"><b>{`Product Backlogs`}</b> </TableCell>
+                  <TableCell size="small" align="center" variant="head"><b>{`Initial Relative Estimate `}</b></TableCell>
+                  <TableCell size="small" align="center" variant="head"><b>{`Initial Cost Estimate `}</b></TableCell>
+                  <TableCell size="small" align="center" variant="head"><b>{`Actions `}</b></TableCell>
                 </TableRow>
               </TableHead>
 
@@ -76,26 +76,26 @@ const ProjectHome = () => {
                 <TableBody>
                   {state.projects.backlog.map((row, index) => (
                     <TableRow key={index} hover>
-                      <TableCell  component="th" scope="row"  color="primary"  align="center" >
+                      <TableCell  component="th" scope="row"  color="primary"  align="center" size="small" >
                         {row.priority}
                       </TableCell>
 
-                      <TableCell component="th" scope="row"  color="primary"  align="center">
+                      <TableCell component="th" scope="row"  color="primary"  align="center" size="small">
                       {row.iWantTo}
                         {/* {`As a ${row.asA}`}<br />
                         {`I want to ${row.iWantTo}`}<br />
                         {`So I can ${row.soIcan}`}<br /> */}
                       </TableCell>
-                      <TableCell  component="th"  scope="row"  color="primary"  align="center" >
+                      <TableCell  component="th"  scope="row"  color="primary"  align="center" size="small">
                         {row.initialRelativeEstimate}
                       </TableCell>
 
-                      <TableCell  component="th"  scope="row"  color="primary"  align="center" >
+                      <TableCell  component="th"  scope="row"  color="primary"  align="center" size="small">
                         {row.initialCostEstimate}
                       </TableCell>
 
-                      <TableCell  component="th"  scope="row"  color="primary"  align="center" >
-                      <Link to={"/updatebacklog"} state={{ backlog: row, projectName: project.project, user: project.user }}>
+                      <TableCell  component="th"  scope="row"  color="primary"  align="center" size="small">
+                      <Link to={"/updatebacklog"} state={{ backlog: row, projectName: project.project, user: project.user,team : state.projects.teamName }}>
                         <Button variant="contained">Edit Backlog</Button>
                       </Link>
                       </TableCell>
@@ -135,7 +135,7 @@ const ProjectHome = () => {
                 <TableBody>
                   {state.projects.sprints.map((row, index) => (
                     <TableRow key={index} hover>
-                      <TableCell  component="th"  scope="row"  color="primary"  align="center" >
+                      <TableCell  component="th"  scope="row"  color="primary"  align="center" size="small">
                       {index+1}
                       </TableCell>
                       {/* <TableCell  component="th" scope="row"  color="primary"  align="center" >
@@ -148,15 +148,15 @@ const ProjectHome = () => {
                       ))} */}
 
                     
-                      <TableCell  component="th"  scope="row"  color="primary"  align="center" >
+                      <TableCell  component="th"  scope="row"  color="primary"  align="center" size="small">
                       {row.startDate}
                       </TableCell>
 
-                      <TableCell  component="th"  scope="row"  color="primary"  align="center" >
+                      <TableCell  component="th"  scope="row"  color="primary"  align="center" size="small">
                       {row.endDate}
                       </TableCell>
 
-                      <TableCell  component="th"  scope="row"  color="primary"  align="center" >
+                      <TableCell  component="th"  scope="row"  color="primary"  align="center" size="small">
 
                         <Link to={"/viewsprint"} state={{ project: project.project, user: project.user }}>
                           <Button variant="contained">View Sprint</Button>

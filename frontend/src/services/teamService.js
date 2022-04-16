@@ -21,6 +21,20 @@ const teamServices = {
       console.log(error);
     }
   },
+  teamMembersByProject:async (teamName,cb) => {
+    try {
+      let response = await fetch(GRAPHURL, {
+        method: METHOD,
+        headers: HEADERS,
+        body: JSON.stringify({ query: "query { teams  { name, members { firstName, lastName, email, role } } }" }),
+      });
+      let json = await response.json();
+
+      cb(json.data.teams.find(e=>e.name===teamName).members);
+    } catch (error) {
+      console.log(error);
+    }
+  },
 
   addNewTeam: async(team,cb)=>{
         try {
