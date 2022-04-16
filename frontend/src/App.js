@@ -11,6 +11,7 @@ import AddNewTeam from "./components/team/AddNewTeam";
 import UpdateBacklog from "./components/productBacklog/UpdateBacklog";
 import AddBacklog from "./components/productBacklog/AddBacklog";
 import AddSprint from "./components/productBacklog/AddSprint";
+import ViewSprint from "./components/productBacklog/ViewSprint";
 
 import {Toolbar, AppBar, Menu,MenuItem,Typography,Card,Snackbar, Button,} from "@mui/material";
 
@@ -99,6 +100,7 @@ const App = () => {
             <Route path="/addbacklog" element={<AddBacklog/>} />
             <Route path="/updatebacklog" element={<UpdateBacklog/>} />
             <Route path="/addsprint" element={<AddSprint/>} />
+            <Route path="/viewsprint" element={<ViewSprint/>} />
             <Route path="/logout" element={<Login dataFromChild={msgFromChildComponents}/>} />
           </Routes>
 

@@ -157,8 +157,11 @@ const ProjectHome = () => {
                       </TableCell>
 
                       <TableCell  component="th"  scope="row"  color="primary"  align="center" >
-                        <Button variant="contained">View Sprint</Button>
-                      
+
+                        <Link to={"/viewsprint"} state={{ project: project.project, user: project.user }}>
+                          <Button variant="contained">View Sprint</Button>
+                        </Link>
+
                       </TableCell>
                     </TableRow>
                   ))}
