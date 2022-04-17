@@ -112,7 +112,7 @@ const ProjectHome = () => {
 
                 {/* NOTE: Will change this to project's sprints  */}
                 <div className="addButton">
-        <Link to={"/addsprint"} state={{ project: state.projects, user: project.user}}>
+        <Link to={"/addsprint"} state={{ project: state.projects, user: project.user, }}>
           <Button variant="contained" style={{color:"#fff", backgroundColor:"rgb(10, 74, 89)"}}> Add Sprint</Button>
           </Link>
         </div>
@@ -138,14 +138,6 @@ const ProjectHome = () => {
                       <TableCell  component="th"  scope="row"  color="primary"  align="center" size="small">
                       {index+1}
                       </TableCell>
-                      {/* <TableCell  component="th" scope="row"  color="primary"  align="center" >
-                        1
-                      </TableCell>
-                      {row.userStories.map((row2, index) => (
-                        <TableCell key={index} component="th" scope="row"  color="primary"  align="center" >
-                        {row2.iWantTo}
-                      </TableCell>
-                      ))} */}
 
                     
                       <TableCell  component="th"  scope="row"  color="primary"  align="center" size="small">
@@ -158,7 +150,7 @@ const ProjectHome = () => {
 
                       <TableCell  component="th"  scope="row"  color="primary"  align="center" size="small">
 
-                        <Link to={"/viewsprint"} state={{ project: project.project, user: project.user }}>
+                        <Link to={"/viewsprint"} state={{ project: row, user: project.user,projectName:project.project, rowNum: (index+1) }}>
                           <Button variant="contained">View Sprint</Button>
                         </Link>
 
