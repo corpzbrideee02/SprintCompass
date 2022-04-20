@@ -18,7 +18,7 @@ const loginRegisterServices = {
             props.dataFromChild( `login failed`);
           }
           else if (json.data.userlogin.email === user.email && json.data.userlogin.password === user.password) { //Success
-           // console.log(json.data.userlogin);
+          //  console.log(json.data.userlogin);
            cb(json.data.userlogin); //callback that will trigger loginSuccess() in Login.js
            props.dataFromChild( `login success` );
           }
