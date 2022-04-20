@@ -59,18 +59,11 @@ hr {
 }
 
 .section-container {
-  /* width: 100vw; */
-  /* height: 100vh; */
   display: flex;
   align-items: center;
   justify-content: center;
   margin: 3em 0;
   padding: 0;
-}
-
-.input-label {
-  margin-right: auto;
-  margin-bottom: 10;
 }
 
 .error-message {

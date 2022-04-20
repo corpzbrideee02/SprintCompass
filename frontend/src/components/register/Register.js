@@ -124,12 +124,7 @@ const Register = (props) => {
               <div className="register-section">
                 <p>Already have an account?</p>
                 <Link to="/login">
-                  <Button
-                    variant="outlined"
-                  >
-                    {" "}
-                    Sign in{" "}
-                  </Button>
+                  <Button variant="outlined" > Sign in </Button>
                 </Link>
               </div>
             </div>

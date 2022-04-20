@@ -55,7 +55,6 @@ const Login = (props) => {
       <div className="login-container">
         <Paper elevation={10} className="paper-style">
           <div className="input-container">
-            {/* <label className="input-label">Email</label> */}
             <TextField
               onChange={handleEmailInput}
               label="Email"
@@ -66,7 +65,6 @@ const Login = (props) => {
               required={true}
             />
 
-            {/* <label className="input-label">Password</label> */}
             <TextField
               onChange={handlePasswordInput}
               label="Password"
