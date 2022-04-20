@@ -55,45 +55,38 @@ const Login = (props) => {
       <div className="login-container">
         <Paper elevation={10} className="paper-style">
           <div className="input-container">
-            <label className="input-label">Email</label>
+            {/* <label className="input-label">Email</label> */}
             <TextField
               onChange={handleEmailInput}
+              label="Email"
               name="email"
               id="email"
               variant="outlined"
               className="input-field"
-              placeholder="johnsmith@gmail.com"
               required={true}
             />
 
-            <label className="input-label">Password</label>
+            {/* <label className="input-label">Password</label> */}
             <TextField
               onChange={handlePasswordInput}
+              label="Password"
               name="password"
               id="password"
               type="password"
               variant="outlined"
               className="input-field"
-              placeholder="xxxxxxxxxxxxxxxxx"
               required={true}
             />
-            
-              <Button type="submit" fullWidth variant="contained" size="large" onClick={onLoginBtnClicked} disabled={emptyorundefined}>
+             <div className="register-section">
+              <Button type="submit" size="large" variant="contained" onClick={onLoginBtnClicked} disabled={emptyorundefined}>
                 Sign In
               </Button>
-
+              </div>
             <hr />
             <div className="register-section">
               <p>Don't have an Account?</p>
               <Link to="/register">
-                <Button
-                  variant="outlined"
-                  className="register-btn"
-                  size="large"
-                >
-                  {" "}
-                  Sign Up{" "}
-                </Button>
+                <Button variant="outlined" > Sign Up </Button>
               </Link>
             </div>
           </div>

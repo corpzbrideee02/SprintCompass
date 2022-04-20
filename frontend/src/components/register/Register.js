@@ -72,39 +72,39 @@ const Register = (props) => {
         <div className="form-content">
           <Paper elevation={10} className="paper-style" style={{ padding: 20 }}>
             <div className="input-container">
-              <label className="input-label">First Name</label>
+              
               <TextField
                 onChange={handleFirstnameInput}
                 name="firstname"
                 id="firstname"
                 variant="outlined"
                 className="input-field"
-                placeholder="John"
+                label="First Name"
                 required={true}
               />
-              <label className="input-label">Last Name</label>
+              
               <TextField
                 onChange={handleLastnameInput}
                 name="lastname"
                 id="lastname"
                 variant="outlined"
                 className="input-field"
-                placeholder="Smith"
+                label="Last Name"
                 required={true}
               />
 
-              <label className="input-label">Email</label>
+              
               <TextField
                 onChange={handleEmailInput}
                 name="email"
                 id="email"
                 variant="outlined"
                 className="input-field"
-                placeholder="johnsmith@gmail.com"
+                label="Email"
                 required={true}
               />
 
-              <label className="input-label">Password</label>
+              
               <TextField
                 onChange={handlePasswordInput}
                 name="password"
@@ -112,21 +112,20 @@ const Register = (props) => {
                 type="password"
                 variant="outlined"
                 className="input-field"
-                placeholder="xxxxxxxxxxxxxxxxx"
+                label="Password"
                 required={true}
               />
-              <Button type="submit" fullWidth variant="contained" size="large" onClick={onRegisterClick} disabled={emptyorundefined} >
+               <div className="register-section">
+              <Button type="submit" variant="contained" size="large" onClick={onRegisterClick} disabled={emptyorundefined} >
                 Register
               </Button>
-
+              </div>
               <hr />
               <div className="register-section">
                 <p>Already have an account?</p>
                 <Link to="/login">
                   <Button
                     variant="outlined"
-                    className="register-btn"
-                    size="large"
                   >
                     {" "}
                     Sign in{" "}
