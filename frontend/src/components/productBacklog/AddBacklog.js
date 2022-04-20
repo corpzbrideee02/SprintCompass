@@ -47,11 +47,21 @@ const AddBacklog = () => {
 
     const onAddBacklogClicked = () => {
         //setAddBacklog({})
+
+        // let backlogToAdd = {
+        //     projectName: project.projectName,
+        //     backlog: { asA: state.asA, iWantTo: state.iWantTo, soIcan: state.soIcan, priority: parseInt(state.priority), initialRelativeEstimate: parseInt(state.initialRelativeEstimate), initialCostEstimate: parseFloat(state.initialCostEstimate)},
+        //     allBackLogs: project.backlog,
+        // }
+
+
+        project.backlog.push({ asA: state.asA, iWantTo: state.iWantTo, soIcan: state.soIcan, priority: parseInt(state.priority), initialRelativeEstimate: parseInt(state.initialRelativeEstimate), initialCostEstimate: parseFloat(state.initialCostEstimate)});
+
         let backlogToAdd = {
             projectName: project.projectName,
-            backlog: { asA: state.asA, iWantTo: state.iWantTo, soIcan: state.soIcan, priority: parseInt(state.priority), initialRelativeEstimate: parseInt(state.initialRelativeEstimate), initialCostEstimate: parseFloat(state.initialCostEstimate)},
             allBackLogs: project.backlog,
         }
+        
         backlogServices.addNewBacklog(backlogToAdd,handleAfterAddClick);
         navigate(-1);
     }

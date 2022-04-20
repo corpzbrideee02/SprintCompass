@@ -95,7 +95,7 @@ const ProjectHome = () => {
                       </TableCell>
 
                       <TableCell  component="th"  scope="row"  color="primary"  align="center" size="small">
-                      <Link to={"/updatebacklog"} state={{ backlog: row, projectName: project.project, user: project.user,team : state.projects.teamName }}>
+                      <Link to={"/updatebacklog"} state={{ backlog: row, index: index, project: state.projects, sprints: state.projects.sprints, projectName: project.project, user: project.user,team : state.projects.teamName }}>
                         <Button variant="contained">Edit Backlog</Button>
                       </Link>
                       </TableCell>

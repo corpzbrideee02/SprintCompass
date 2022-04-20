@@ -16,12 +16,16 @@ import {
     FormControl,
     InputLabel
 } from "@mui/material";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation,  useNavigate } from "react-router-dom";
 import backlogServices from "../../services/backlogServices";
 
 const UpdateBacklog = () => {
     let location = useLocation();
+    let navigate = useNavigate();
     const backlog = location.state.backlog;
+    let sprints = location.state.sprints;
+    let project = location.state.project;
+    let index = location.state.index;
     console.log(backlog)
     const teamName = location.state.team;
     const projectName=location.state.projectName;
@@ -58,6 +62,55 @@ const UpdateBacklog = () => {
     const handleSoIcanInput = (e) => { setState({ soIcan: e.target.value }) };
     const handlePriorityInput = (e) => { setState({ priority: e.target.value }) };
 
+    const updateUserStory = () => {
+        
+        if (selectSprint === undefined || selectSprint === '') //save user story changes
+        {
+            console.log("save user story");
+
+            project.backlog[index] = {
+                asA: state.asA,
+                iWantTo: state.iWantTo,
+                soIcan: state.soIcan,
+                priority: state.priority,
+                tasks: state.subtasks,
+                initialRelativeEstimate: backlog.initialRelativeEstimate,
+                initialCostEstimate: backlog.initialCostEstimate
+            };
+
+            backlogServices.updateBacklog(project, navigate(-1));
+        }
+        else // move to sprint
+        {
+            project.backlog.splice(index, 1); // remove from backlog
+            backlogServices.updateBacklog(project, navigate(-1));
+
+            console.log("move to sprint");
+
+            // project.sprints[selectSprint].userStories.push({
+            //     asA: state.asA,
+            //     iWantTo: state.iWantTo,
+            //     soIcan: state.soIcan,
+            //     priority: state.priority,
+            //     tasks: state.subtasks,
+            //     initialRelativeEstimate: backlog.initialRelativeEstimate,
+            //     initialCostEstimate: backlog.initialCostEstimate
+            // });
+
+            let userStory = {
+                asA: state.asA,
+                iWantTo: state.iWantTo,
+                soIcan: state.soIcan,
+                priority: state.priority,
+                tasks: state.subtasks,
+                initialRelativeEstimate: backlog.initialRelativeEstimate,
+                initialCostEstimate: backlog.initialCostEstimate
+            }
+
+            backlogServices.updateSprints(project, selectSprint, -1, userStory, navigate(-1));
+        }
+    };
+
     //will put 1. Product Backlogs TextFields (to edit), 2. table of subtasks (see Figma Design-> View User Story) 3. A dropdown to Move Product Backlogs to Sprints (see Figma Design-> View User Story  bottom)
     return (
         <ThemeProvider theme={theme}>
@@ -84,13 +137,16 @@ const UpdateBacklog = () => {
                                 label="Move to Sprint"
                                 onChange={handleSprintChange}
                             >
-                                <MenuItem value={1}>1</MenuItem>
+                                {sprints.map((row, index) => (
+                                    <MenuItem value={index}>{index+1}</MenuItem>
+                                ))}
+                                {/* <MenuItem value={1}>1</MenuItem>
                                 <MenuItem value={2}>2</MenuItem>
-                                <MenuItem value={3}>3</MenuItem>
+                                <MenuItem value={3}>3</MenuItem> */}
                             </Select>
                         </FormControl>
 
-                        <Button variant="contained" style={{ width: 100 }}> Save</Button>
+                        <Button variant="contained" style={{ width: 100 }} onClick={() => updateUserStory()}> Save</Button>
                     </div>
                 </div>
 
@@ -98,7 +154,7 @@ const UpdateBacklog = () => {
 
             <div className="addButton">
                 <Link to={"/addsubtask"} state={{ teamName: teamName, projectName:projectName, backlogName:state.iWantTo }} >
-                    <Button variant="contained" style={{ color: "#fff", backgroundColor: "rgb(10, 74, 89)" }}> Add Subtask</Button>
+                    <Button variant="contained" style={{ color: "#fff", backgroundColor: "rgb(10, 74, 89)" }} > Add Subtask</Button>
                 </Link>
             </div>
 
@@ -116,7 +172,7 @@ const UpdateBacklog = () => {
                             </TableRow>
                         </TableHead>
 
-                        {state.subtasks.length>0 ? (
+                        {state.subtasks != undefined && state.subtasks.length>0 ? (
                             <TableBody>
                                 {state.subtasks.map((row, index) => (
                                     <TableRow key={index} hover>

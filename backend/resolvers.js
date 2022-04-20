@@ -62,6 +62,12 @@ const resolvers = {
     },
     updateprojectbacklog: async (args) => {
         let db = await dbRtns.getDBInstance();
+        
+        args.backlog.forEach(element => {
+            if (element.tasks === undefined)
+                element.tasks = [];
+        });
+            
         let results = await dbRtns.updateOne( db, projects, {projectName: args.projectName }, { backlog: args.backlog } );
         return  results.lastErrorObject.updatedExisting ? await dbRtns.findOne(db, projects, { projectName: args.projectName } ) : null;
     },
@@ -80,6 +86,25 @@ const resolvers = {
         let db = await dbRtns.getDBInstance();
         let results = await dbRtns.updateOne( db, projects, {projectName: args.projectName }, { sprints: args.sprints } );
         return  results.lastErrorObject.updatedExisting ? await dbRtns.findOne(db, projects, { projectName: args.projectName } ) : null;
+    },
+    movetosprint: async (args) => {
+        let db = await dbRtns.getDBInstance();
+        let project = await dbRtns.findOne(db, projects, { projectName: args.projectName });
+         
+        console.log("in move to sprint");
+
+        if (args.removeIndex >= 0)
+        {
+            console.log("removing from current sprint");
+            project.sprints[args.addIndex - 1].userStories.splice(args.removeIndex, 1); // remove from current sprint to move to next sprint
+        }
+            
+        project.sprints[args.addIndex].userStories.push(args.userStory);
+
+        console.log( project.sprints[args.addIndex].userStories);
+
+        let results = await dbRtns.updateOne( db, projects, {projectName: args.projectName }, { sprints: project.sprints } );
+        return  results.lastErrorObject.updatedExisting ? await dbRtns.findOne(db, projects, { projectName: args.projectName } ) : null;        
     },
     projectbyname: async (args) => {
         let db = await dbRtns.getDBInstance();

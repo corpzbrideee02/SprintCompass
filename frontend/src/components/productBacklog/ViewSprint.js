@@ -1,7 +1,7 @@
 import React, { useEffect, useReducer, useState } from "react";
 import { ThemeProvider } from "@mui/material/styles";
 import theme from "../../theme";
-import jsPDF from "jspdf";
+//import jsPDF from "jspdf";
 
 import {
     Paper,

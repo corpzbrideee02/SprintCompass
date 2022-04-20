@@ -24,8 +24,8 @@ const backlogServices = {
   addNewBacklog: async(project,cb)=>{
     try {
 
-        let allPB=project.allBackLogs;
-        allPB.push(project.backlog)
+       // let allPB=project.allBackLogs;
+       // allPB.push(project.backlog)
 
       let response2 = await fetch(GRAPHURL, {
         method: METHOD,
@@ -69,6 +69,61 @@ const backlogServices = {
     }
   },
 
+  updateBacklog: async(project,cb)=>{
+    try {
+
+      //let allPB=project.allBackLogs;
+
+      let response = await fetch(GRAPHURL, {
+        method: METHOD,
+        headers: HEADERS,
+        body: JSON.stringify({
+          query: `mutation{updateprojectbacklog(
+            projectName: "${project.projectName}",
+            backlog:  [${project.backlog.map(x=>`{asA: "${x.asA}", iWantTo: "${x.iWantTo}", soIcan: "${x.soIcan}", tasks:[${ x.tasks.map(y=>`{description: "${y.description}", member: "${y.member}", status: "${y.status}"}`)}], priority: ${x.priority}, initialRelativeEstimate:${x.initialRelativeEstimate}, initialCostEstimate:${x.initialCostEstimate}}`)}]
+            ){backlog { asA, iWantTo, soIcan, priority, initialRelativeEstimate, initialCostEstimate, member, tasks {description, member, status} }}}`,
+        }), 
+      });
+
+      let json = await response.json();
+      console.log(json.data.updateprojectbacklog);
+      console.log("updated successfully");
+      cb(); //trigger 
+    } catch (error) {
+      console.log(error);
+      //props.dataFromChild(`${error.message} - advisory not added`);
+    }
+  },
+
+  updateSprints: async(project, addIndex, removeIndex, userStory, cb) => {
+    try{
+      let response2;
+
+     if (project.sprints !== undefined)
+     {
+        response2 = await fetch(GRAPHURL, {
+          method: METHOD,
+          headers: HEADERS,
+          body: JSON.stringify({
+            query: `mutation{movetosprint(
+              projectName: "${project.projectName}",
+              addIndex: ${addIndex},
+              removeIndex: ${removeIndex},
+              userStory: {asA: "${userStory.asA}", iWantTo: "${userStory.iWantTo}", soIcan: "${userStory.soIcan}", tasks:[${ userStory.tasks.map(y=>`{description: "${y.description}", member: "${y.member}", status: "${y.status}"}`)}], priority: ${userStory.priority}, initialRelativeEstimate:${userStory.initialRelativeEstimate}, initialCostEstimate:${userStory.initialCostEstimate}}
+              ){sprints{startDate, endDate, { asA, iWantTo, soIcan, priority, initialRelativeEstimate, initialCostEstimate, member, tasks {description, member, status} }}}}`,
+          }), 
+        });
+     }
+      let json2 = await response2.json();
+      console.log(json2.data.movetosprint);
+      console.log("updated successfully");
+      cb(); //trigger 
+
+    } catch (error) {
+      console.log(error);
+      //props.dataFromChild(`${error.message} - advisory not added`);
+    }  
+  }
 };
 
 export default backlogServices;
