@@ -91,7 +91,7 @@ const UpdateSubtask = () => {
                     <div className="titlePage">Update Subtask</div>
                     <Paper elevation={10} className="paper-style" style={{ padding: 30 }}>
                         <div className="input-container">
-                            <TextField required label="As a" value={state.description} onChange={handleDescriptionInput} variant="outlined" className="input-field" />
+                            <TextField required label="Description" value={state.description} onChange={handleDescriptionInput} variant="outlined" className="input-field" />
                             <Autocomplete
                                 style={{ minWidth: "500px", marginBottom: 20 }}
                                 data-testid="autocomplete"
