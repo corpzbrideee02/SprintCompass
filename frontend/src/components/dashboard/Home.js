@@ -7,6 +7,7 @@ import "./Home.css";
 import { Link, useLocation } from "react-router-dom";
 
 import projectServices from "../../services/projectService";
+import { fontStyle } from "@mui/system";
 
 const Home = (props) => {
   let location = useLocation();
@@ -43,10 +44,10 @@ const Home = (props) => {
           <Table sx={{ minWidth: 350, padding: 20 }} aria-label="simple table">
             <TableHead>
               <TableRow>
-                <TableCell align="center" variant="head">Project Name</TableCell>
-                <TableCell align="center" variant="head"> User Role </TableCell>
-                <TableCell align="center" variant="head"> Team Name </TableCell>
-                <TableCell align="center" variant="head"> Actions </TableCell>
+                <TableCell align="center" variant="head"><b>Project Name</b></TableCell>
+                <TableCell align="center" variant="head"><b>User Role</b></TableCell>
+                <TableCell align="center" variant="head"><b>Team Name</b></TableCell>
+                <TableCell align="center" variant="head"><b>Actions</b></TableCell>
               </TableRow>
             </TableHead>
             {(user.projects.length !== 0) ? (
@@ -57,7 +58,7 @@ const Home = (props) => {
                     <TableCell component="th" scope="row"  color="primary"  align="center" >  {row.role} </TableCell>
                     <TableCell  component="th" scope="row"  color="primary"  align="center">{row.team} </TableCell>
                     <TableCell  component="th"  scope="row"  color="primary" align="center" >
-                      <Link to={"/project"} state={{ selectedRow: row,user: user.email  }}>
+                      <Link to={"/project"} state={{ selectedRow: row,user: user.email  }} style={{textDecoration:'none'}}>
                         <Button variant="contained" > View </Button>
                       </Link>
                     </TableCell>

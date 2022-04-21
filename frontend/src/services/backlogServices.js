@@ -110,7 +110,7 @@ const backlogServices = {
               addIndex: ${addIndex},
               removeIndex: ${removeIndex},
               userStory: {asA: "${userStory.asA}", iWantTo: "${userStory.iWantTo}", soIcan: "${userStory.soIcan}", tasks:[${ userStory.tasks.map(y=>`{description: "${y.description}", member: "${y.member}", status: "${y.status}"}`)}], priority: ${userStory.priority}, initialRelativeEstimate:${userStory.initialRelativeEstimate}, initialCostEstimate:${userStory.initialCostEstimate}}
-              ){sprints{startDate, endDate, { asA, iWantTo, soIcan, priority, initialRelativeEstimate, initialCostEstimate, member, tasks {description, member, status} }}}}`,
+              ){sprints {startDate, endDate, userStories {asA, iWantTo, soIcan, priority, initialRelativeEstimate, initialCostEstimate, member, tasks {description, member, status} } } }}`,
           }), 
         });
      }

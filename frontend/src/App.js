@@ -67,7 +67,7 @@ const App = () => {
     <ThemeProvider theme={theme}>
       <AppBar position="static">
           <Toolbar>
-            <Typography variant="h6" color="black">
+            <Typography variant="h6" color="white">
               {" "}
               Sprint Compass{" "}
             </Typography>
@@ -110,7 +110,7 @@ const App = () => {
 
 
       <Card className="footer" color="primary">
-        <Typography variant="h7" color="black">
+        <Typography variant="h7" color="white">
           Huron Heights Hive - &copy; {new Date().getFullYear()}
         </Typography>
       </Card>

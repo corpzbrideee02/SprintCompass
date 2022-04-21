@@ -87,16 +87,6 @@ const UpdateBacklog = () => {
 
             console.log("move to sprint");
 
-            // project.sprints[selectSprint].userStories.push({
-            //     asA: state.asA,
-            //     iWantTo: state.iWantTo,
-            //     soIcan: state.soIcan,
-            //     priority: state.priority,
-            //     tasks: state.subtasks,
-            //     initialRelativeEstimate: backlog.initialRelativeEstimate,
-            //     initialCostEstimate: backlog.initialCostEstimate
-            // });
-
             let userStory = {
                 asA: state.asA,
                 iWantTo: state.iWantTo,
@@ -187,7 +177,7 @@ const UpdateBacklog = () => {
                                             {row.status}
                                         </TableCell>
                                         <TableCell component="th" scope="row" color="primary" align="center" size="small">
-                                        <Link to={"/updatesubtask"} state={{ subtask: row, teamName: teamName,projectName:projectName, backlogName:state.iWantTo}}>
+                                        <Link to={"/updatesubtask"} state={{ subtask: row, teamName: teamName,projectName:projectName, backlogName:state.iWantTo}} style={{textDecoration:'none'}}>
                                             <Button variant="contained">Edit Subtask</Button>
                                         </Link>
                                         </TableCell>
