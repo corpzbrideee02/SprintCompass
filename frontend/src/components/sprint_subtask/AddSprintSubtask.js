@@ -44,7 +44,7 @@ const AddSprintSubtask = () => {
 
     
     const onAddSubtaskClicked = () => {
-        let subtaskToAdd={description: state.description, member:state.userSelected, status: statusSelected};
+        let subtaskToAdd={description: state.description, member:state.userSelected, status: statusSelected,hoursWorked: 0};
         let projectData={allSprints:state.allSprints, allSubtasks:state.allSubtasks, subtask:subtaskToAdd, sprint:state.thisSprint, projectName:projectName};
        //console.log(state.thisSprint);
          sprintSubtaskService.addNewSubtask(sprintNum,userStoryName,projectData,handleAddSubtask);

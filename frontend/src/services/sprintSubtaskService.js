@@ -13,7 +13,7 @@ const sprintSubtaskService = {
         method: METHOD,
         headers: HEADERS,
         body: JSON.stringify({
-          query:`query {projectbyname(projectName: "${project}") { projectName, sprints { userStories { asA, iWantTo, soIcan, priority, initialRelativeEstimate, initialCostEstimate, tasks {description, member, status} }, startDate, endDate } }}`,
+          query:`query {projectbyname(projectName: "${project}") { projectName, sprints { userStories { asA, iWantTo, soIcan, priority, initialRelativeEstimate, initialCostEstimate, tasks {description, member, status,, hoursWorked} }, startDate, endDate } }}`,
         }),
       });
       let json = await response.json();
@@ -35,7 +35,7 @@ const sprintSubtaskService = {
         method: METHOD,
         headers: HEADERS,
         body: JSON.stringify({
-          query:`query {projectbyname(projectName: "${project}") { projectName, sprints { userStories { asA, iWantTo, soIcan, priority, initialRelativeEstimate, initialCostEstimate, tasks {description, member, status} }, startDate, endDate }  }}`,
+          query:`query {projectbyname(projectName: "${project}") { projectName, sprints { userStories { asA, iWantTo, soIcan, priority, initialRelativeEstimate, initialCostEstimate, tasks {description, member, status, hoursWorked} }, startDate, endDate }  }}`,
         }),
       });
       let json = await response.json();
@@ -65,7 +65,7 @@ const sprintSubtaskService = {
     method: METHOD,
     headers: HEADERS,
     body: JSON.stringify({
-      query:`query {projectbyname(projectName: "${project.projectName}") { projectName, sprints { userStories { asA, iWantTo, soIcan, priority, initialRelativeEstimate, initialCostEstimate, tasks {description, member, status} }, startDate, endDate } }}`,
+      query:`query {projectbyname(projectName: "${project.projectName}") { projectName, sprints { userStories { asA, iWantTo, soIcan, priority, initialRelativeEstimate, initialCostEstimate, tasks {description, member, status, hoursWorked} }, startDate, endDate } }}`,
     }),
   });
   let json = await AllSprintResponse.json();
@@ -104,7 +104,7 @@ body: JSON.stringify({
                       [${x.userStories.map(s=>
                         `{asA: "${s.asA}", iWantTo: "${s.iWantTo}", soIcan: "${s.soIcan}", priority: ${s.priority},  
                           initialRelativeEstimate:${s.initialRelativeEstimate}, initialCostEstimate:${s.initialCostEstimate},
-                            tasks:[${ s.tasks.map(y=>`{description: "${y.description}", member: "${y.member}", status: "${y.status}"}` )}]
+                            tasks:[${ s.tasks.map(y=>`{description: "${y.description}", member: "${y.member}", status: "${y.status}", hoursWorked: ${y.hoursWorked}}` )}]
                             }`
                       )}],
                       startDate: "${x.startDate }",
@@ -112,7 +112,7 @@ body: JSON.stringify({
                   `)}
   
   ])
-  {sprints { userStories { asA, iWantTo, soIcan, priority, initialRelativeEstimate, initialCostEstimate, tasks {description, member, status} }, startDate, endDate } }
+  {sprints { userStories { asA, iWantTo, soIcan, priority, initialRelativeEstimate, initialCostEstimate, tasks {description, member, status, hoursWorked} }, startDate, endDate } }
 }`,
 }), 
       });//end of response2
