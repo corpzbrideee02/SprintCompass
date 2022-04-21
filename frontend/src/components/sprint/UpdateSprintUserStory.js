@@ -26,16 +26,11 @@ const UpdateSprintUserStory = () => {
     let navigate = useNavigate();
     const thisUserStory = location.state.userStory;
     const projectName = location.state.projectName;
-<<<<<<< HEAD
     const teamName=location.state.teamName;
     const sprintNum=location.state.sprintNum;
     const project = location.state.project;
     const sprints = location.state.project.sprints;
     const currentIndex = location.state.index;
-=======
-    const teamName = location.state.teamName;
-    const sprintNum = location.state.sprintNum;
->>>>>>> 52045011c4b3ec179b06a6a857d85e87f0caddd6
     console.log(thisUserStory)
 
     const newSprintAvailable = sprintNum < sprints.length;
@@ -119,8 +114,8 @@ const UpdateSprintUserStory = () => {
                     <div className="titlePage">Update Sprint's User Story</div>
                     <Paper elevation={10} className="paper-style" style={{ padding: 10 }}>
                         <div className="input-container">
-                            <TextField required onChange={handleAsAInput} value={state.asA} label="As a" variant="outlined" className="input-field" />
-                            <TextField required onChange={handleIwantToInput} value={state.iWantTo} label="I want to" variant="outlined" className="input-field" />
+                            <TextField required onChange={handleAsAInput}  value={state.asA} label="As a"  variant="outlined" className="input-field" />
+                            <TextField required onChange={handleIwantToInput}  value={state.iWantTo} label="I want to" variant="outlined" className="input-field" />
                             <TextField required onChange={handleSoIcanInput} value={state.soIcan} label="So I can" variant="outlined" className="input-field" />
                             <TextField required onChange={handlePriorityInput} value={state.priority} abel="Priority" variant="outlined" className="input-field" />
                         </div>
@@ -160,18 +155,13 @@ const UpdateSprintUserStory = () => {
             </div>
 
             <div className="addButton">
-<<<<<<< HEAD
                 <Link to={"/addSprintSubtask"} state={{teamName: teamName, projectName:projectName, userStoryName:state.iWantTo, sprintNum:sprintNum }} style={{textDecoration:'none'}}>
-=======
-                <Link to={"/addSprintSubtask"} state={{ teamName: teamName, projectName: projectName, userStoryName: state.iWantTo, sprintNum: sprintNum }}>
->>>>>>> 52045011c4b3ec179b06a6a857d85e87f0caddd6
                     <Button variant="contained" style={{ color: "#fff", backgroundColor: "rgb(10, 74, 89)" }} > Add Subtask</Button>
                 </Link>
             </div>
 
-            <Paper style={{ padding: 20, marginBottom: '4vh' }}>
-                <div className="tableCustomHeader"> Sprint's SubTasks</div>
-
+            <Paper style={{ padding: 20 }}>
+                <div className="tableCustomHeader"> SubTasks</div>
                 <TableContainer>
                     <Table sx={{ minWidth: 350 }} aria-label="simple table">
                         <TableHead>
@@ -183,11 +173,11 @@ const UpdateSprintUserStory = () => {
                             </TableRow>
                         </TableHead>
 
-                        {thisUserStory.tasks != undefined && thisUserStory.tasks.length > 0 ? (
+                        {thisUserStory.tasks != undefined && thisUserStory.tasks.length>0 ? (
                             <TableBody>
                                 {thisUserStory.tasks.map((row, index) => (
                                     <TableRow key={index} hover>
-                                        <TableCell component="th" scope="row" color="primary" align="center" size="small">
+                                        <TableCell component="th" scope="row" color="primary" align="center" size="small"> 
                                             {row.description}
                                         </TableCell>
 
@@ -197,31 +187,23 @@ const UpdateSprintUserStory = () => {
                                         <TableCell component="th" scope="row" color="primary" align="center" size="small">
                                             {row.status}
                                         </TableCell>
-<<<<<<< HEAD
-                                        <TableCell component="th" scope="row" color="primary" align="center" size="small">
-                                        <Link to={"/updateSprintSubtask"} state={{ subtask: row,teamName: teamName,projectName:projectName, userStoryName:state.iWantTo, sprintNum:sprintNum }} style={{textDecoration:'none'}}>
-                                            <Button variant="contained">Edit Subtask</Button>
-                                        </Link>
-                                        </TableCell>
-=======
                                         {row.status === "Closed" || row.status === "Completed" ?
                                             <TableCell component="th" scope="row" color="primary" align="center" size="small">
                                                 <Button variant="contained" disabled={true} >Task Closed</Button>
                                             </TableCell>
                                             :
                                             <TableCell component="th" scope="row" color="primary" align="center" size="small">
-                                                <Link to={"/updateSprintSubtask"} state={{ subtask: row, teamName: teamName, projectName: projectName, userStoryName: state.iWantTo, sprintNum: sprintNum }}>
+                                                <Link to={"/updateSprintSubtask"} state={{ subtask: row,teamName: teamName,projectName:projectName, userStoryName:state.iWantTo, sprintNum:sprintNum }} style={{textDecoration:'none'}}>
                                                     <Button variant="contained">Edit Subtask</Button>
                                                 </Link>
                                             </TableCell>
 
                                         }
->>>>>>> 52045011c4b3ec179b06a6a857d85e87f0caddd6
                                     </TableRow>
                                 ))}
                             </TableBody>
                         ) :
-                            (<div className="propertiesTextLabel">No Data found</div>)
+                            ( <div className="propertiesTextLabel">No Data found</div>)
                         }
                     </Table>
                 </TableContainer>
