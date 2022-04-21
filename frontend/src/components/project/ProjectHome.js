@@ -135,7 +135,7 @@ const ProjectHome = () => {
         <Paper style={{ padding: 20 }}>
           <div className="tableCustomHeader"> Sprints</div>
           <TableContainer >
-            <Table sx={{ minWidth: 350, padding: 20 }} aria-label="simple table" >
+            <Table sx={{ minWidth: 350, padding: 20,marginBottom:'4vh' }} aria-label="simple table" >
               <TableHead>
                 <TableRow className="tableHead"> {``}
                   <TableCell align="center" variant="head"><b>{`Sprint`}</b></TableCell>

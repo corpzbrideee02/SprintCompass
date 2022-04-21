@@ -83,8 +83,9 @@ const UpdateSprintUserStory = () => {
                 </Link>
             </div>
 
-            <Paper style={{ padding: 20 }}>
-                <div className="tableCustomHeader"> SubTasks</div>
+            <Paper style={{ padding: 20, marginBottom:'4vh' }}>
+                <div className="tableCustomHeader"> Sprint's SubTasks</div>
+
                 <TableContainer>
                     <Table sx={{ minWidth: 350 }} aria-label="simple table">
                         <TableHead>
