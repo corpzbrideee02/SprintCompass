@@ -11,7 +11,7 @@ const projectServices = {
       let response = await fetch(GRAPHURL, {
         method: METHOD,
         headers: HEADERS,
-        body: JSON.stringify({ query: "query { projects {teamName, projectName, startDate, velocity, hoursToStoryPoint, totalEstimatedStoryPoints, totalEstimatedCost, team {firstName, lastName, email, role}, backlog { asA, iWantTo, soIcan, priority, initialRelativeEstimate, initialCostEstimate, tasks {description, member, status} }, sprints { userStories { asA, iWantTo, soIcan, priority, initialRelativeEstimate, initialCostEstimate, tasks {description, member, status} }, startDate, endDate } } } " }),
+        body: JSON.stringify({ query: "query { projects {teamName, projectName, startDate, velocity, hoursToStoryPoint, totalEstimatedStoryPoints, totalEstimatedCost, team {firstName, lastName, email, role}, backlog { asA, iWantTo, soIcan, priority, initialRelativeEstimate, initialCostEstimate, tasks {description, member, status, hoursWorked} }, sprints { userStories { asA, iWantTo, soIcan, priority, initialRelativeEstimate, initialCostEstimate, tasks {description, member, status, hoursWorked} }, startDate, endDate } } } " }),
       });
       let json = await response.json();
 

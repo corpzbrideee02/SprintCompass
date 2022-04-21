@@ -59,11 +59,13 @@ const schema = buildSchema(`
         description: String
         member: String
         status: String
+        hoursWorked: Int
     },
     type Subtask {
         description: String
         member: String
         status: String
+        hoursWorked: Int
     },
     input UserStoryInput {
         asA: String

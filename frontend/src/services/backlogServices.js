@@ -11,7 +11,7 @@ const backlogServices = {
       let response = await fetch(GRAPHURL, {
         method: METHOD,
         headers: HEADERS,
-        body: JSON.stringify({ query: "query { projects {backlog { asA, iWantTo, soIcan, priority, initialRelativeEstimate, initialCostEstimate, tasks {description, member, status} }} }" }),
+        body: JSON.stringify({ query: "query { projects {backlog { asA, iWantTo, soIcan, priority, initialRelativeEstimate, initialCostEstimate, tasks {description, member, status, hoursWorked} }} }" }),
       });
       let json = await response.json();
 
@@ -34,7 +34,7 @@ const backlogServices = {
           query: `mutation{updateprojectbacklog(
             projectName: "${project.projectName}",
             backlog:  [${project.allBackLogs.map(x=>`{asA: "${x.asA}", iWantTo: "${x.iWantTo}", soIcan: "${x.soIcan}", priority: ${x.priority}, initialRelativeEstimate:${x.initialRelativeEstimate}, initialCostEstimate:${x.initialCostEstimate}}`)}]
-            ){backlog { asA, iWantTo, soIcan, priority, initialRelativeEstimate, initialCostEstimate, member, tasks {description, member, status} }}}`,
+            ){backlog { asA, iWantTo, soIcan, priority, initialRelativeEstimate, initialCostEstimate, member, tasks {description, member, status, hoursWorked } }}}`,
         }), 
       });
       let json2 = await response2.json();
@@ -55,7 +55,7 @@ const backlogServices = {
         headers: HEADERS,
         body: JSON.stringify({
           query: `mutation { addnewsprint( projectName: "${project.projectName}", startDate: "${project.startDate}", endDate: "${project.endDate}" )
-          {sprints {startDate, endDate, userStories {asA, iWantTo, soIcan, priority, initialRelativeEstimate, initialCostEstimate, member, tasks {description, member, status} } } } }`,
+          {sprints {startDate, endDate, userStories {asA, iWantTo, soIcan, priority, initialRelativeEstimate, initialCostEstimate, member, tasks {description, member, status, hoursWorked} } } } }`,
         }), 
       });
       let json2 = await response2.json();
@@ -80,8 +80,8 @@ const backlogServices = {
         body: JSON.stringify({
           query: `mutation{updateprojectbacklog(
             projectName: "${project.projectName}",
-            backlog:  [${project.backlog.map(x=>`{asA: "${x.asA}", iWantTo: "${x.iWantTo}", soIcan: "${x.soIcan}", tasks:[${ x.tasks.map(y=>`{description: "${y.description}", member: "${y.member}", status: "${y.status}"}`)}], priority: ${x.priority}, initialRelativeEstimate:${x.initialRelativeEstimate}, initialCostEstimate:${x.initialCostEstimate}}`)}]
-            ){backlog { asA, iWantTo, soIcan, priority, initialRelativeEstimate, initialCostEstimate, member, tasks {description, member, status} }}}`,
+            backlog:  [${project.backlog.map(x=>`{asA: "${x.asA}", iWantTo: "${x.iWantTo}", soIcan: "${x.soIcan}", tasks:[${ x.tasks.map(y=>`{description: "${y.description}", member: "${y.member}", status: "${y.status}", hoursWorked: ${y.hoursWorked}}`)}], priority: ${x.priority}, initialRelativeEstimate:${x.initialRelativeEstimate}, initialCostEstimate:${x.initialCostEstimate}}`)}]
+            ){backlog { asA, iWantTo, soIcan, priority, initialRelativeEstimate, initialCostEstimate, member, tasks {description, member, status, hoursWorked} }}}`,
         }), 
       });
 
@@ -109,8 +109,8 @@ const backlogServices = {
               projectName: "${project.projectName}",
               addIndex: ${addIndex},
               removeIndex: ${removeIndex},
-              userStory: {asA: "${userStory.asA}", iWantTo: "${userStory.iWantTo}", soIcan: "${userStory.soIcan}", tasks:[${ userStory.tasks.map(y=>`{description: "${y.description}", member: "${y.member}", status: "${y.status}"}`)}], priority: ${userStory.priority}, initialRelativeEstimate:${userStory.initialRelativeEstimate}, initialCostEstimate:${userStory.initialCostEstimate}}
-              ){sprints {startDate, endDate, userStories {asA, iWantTo, soIcan, priority, initialRelativeEstimate, initialCostEstimate, member, tasks {description, member, status} } } }}`,
+              userStory: {asA: "${userStory.asA}", iWantTo: "${userStory.iWantTo}", soIcan: "${userStory.soIcan}", tasks:[${ userStory.tasks.map(y=>`{description: "${y.description}", member: "${y.member}", status: "${y.status}", hoursWorked: ${y.hoursWorked}}`)}], priority: ${userStory.priority}, initialRelativeEstimate:${userStory.initialRelativeEstimate}, initialCostEstimate:${userStory.initialCostEstimate}}
+              ){sprints {startDate, endDate, userStories {asA, iWantTo, soIcan, priority, initialRelativeEstimate, initialCostEstimate, member, tasks {description, member, status, hoursWorked} } } }}`,
           }), 
         });
      }

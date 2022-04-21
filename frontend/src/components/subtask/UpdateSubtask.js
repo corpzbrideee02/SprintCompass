@@ -52,7 +52,7 @@ const UpdateSubtask = () => {
     }
 
     const onSaveSubtaskClicked=()=>{
-        let subtaskToSave={description: state.description, member:state.memberSelected, status: statusSelected};
+        let subtaskToSave={description: state.description, member:state.memberSelected, status: statusSelected, hoursWorked: 0};
         const index = state.allSubtasks.findIndex(item => item.description === subtaskConstant);
         let newallSubtasks = [...state.allSubtasks]; // important to create a copy,
         newallSubtasks[index] = subtaskToSave;

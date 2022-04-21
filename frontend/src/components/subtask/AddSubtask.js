@@ -43,11 +43,9 @@ const AddSubtask = () => {
 
     
     const onAddSubtaskClicked = () => {
-        let subtaskToAdd={description: state.description, member:state.userSelected, status: statusSelected};
+        let subtaskToAdd={description: state.description, member:state.userSelected, status: statusSelected, hoursWorked: 0};
         let projectData={allBackLogs:state.allBackLogs, allSubtasks:state.allSubtasks, subtask:subtaskToAdd, backlog:state.thisBacklog, projectName:projectName};
         subtaskServices.addNewSubtask(backlogName,projectData,handleAddSubtask)
-       
-
     }
 
     const fetchAllbacklogs=(data)=>{
