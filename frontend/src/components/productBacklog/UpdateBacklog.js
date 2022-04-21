@@ -16,7 +16,7 @@ import {
     FormControl,
     InputLabel
 } from "@mui/material";
-import { Link, useLocation,  useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import backlogServices from "../../services/backlogServices";
 
 const UpdateBacklog = () => {
@@ -28,8 +28,8 @@ const UpdateBacklog = () => {
     let index = location.state.index;
     console.log(backlog)
     const teamName = location.state.team;
-    const projectName=location.state.projectName;
-    
+    const projectName = location.state.projectName;
+
     const initialState = {
         bclog: null,
         asA: backlog.asA,
@@ -63,7 +63,7 @@ const UpdateBacklog = () => {
     const handlePriorityInput = (e) => { setState({ priority: e.target.value }) };
 
     const updateUserStory = () => {
-        
+
         if (selectSprint === undefined || selectSprint === '') //save user story changes
         {
             console.log("save user story");
@@ -128,7 +128,7 @@ const UpdateBacklog = () => {
                                 onChange={handleSprintChange}
                             >
                                 {sprints.map((row, index) => (
-                                    <MenuItem value={index}>{index+1}</MenuItem>
+                                    <MenuItem value={index}>{index + 1}</MenuItem>
                                 ))}
                                 {/* <MenuItem value={1}>1</MenuItem>
                                 <MenuItem value={2}>2</MenuItem>
@@ -143,7 +143,7 @@ const UpdateBacklog = () => {
             </div>
 
             <div className="addButton">
-                <Link to={"/addsubtask"} state={{ teamName: teamName, projectName:projectName, backlogName:state.iWantTo }} >
+                <Link to={"/addsubtask"} state={{ teamName: teamName, projectName: projectName, backlogName: state.iWantTo }} >
                     <Button variant="contained" style={{ color: "#fff", backgroundColor: "rgb(10, 74, 89)" }} > Add Subtask</Button>
                 </Link>
             </div>
@@ -162,11 +162,11 @@ const UpdateBacklog = () => {
                             </TableRow>
                         </TableHead>
 
-                        {state.subtasks != undefined && state.subtasks.length>0 ? (
+                        {state.subtasks != undefined && state.subtasks.length > 0 ? (
                             <TableBody>
                                 {state.subtasks.map((row, index) => (
                                     <TableRow key={index} hover>
-                                        <TableCell component="th" scope="row" color="primary" align="center" size="small"> 
+                                        <TableCell component="th" scope="row" color="primary" align="center" size="small">
                                             {row.description}
                                         </TableCell>
 
@@ -176,16 +176,23 @@ const UpdateBacklog = () => {
                                         <TableCell component="th" scope="row" color="primary" align="center" size="small">
                                             {row.status}
                                         </TableCell>
-                                        <TableCell component="th" scope="row" color="primary" align="center" size="small">
-                                        <Link to={"/updatesubtask"} state={{ subtask: row, teamName: teamName,projectName:projectName, backlogName:state.iWantTo}} style={{textDecoration:'none'}}>
-                                            <Button variant="contained">Edit Subtask</Button>
-                                        </Link>
-                                        </TableCell>
+                                        {row.status === "Closed" || row.status === "Completed" ?
+                                            <TableCell component="th" scope="row" color="primary" align="center" size="small">
+                                                <Button variant="contained" disabled={true} >Task Closed</Button>
+                                            </TableCell>
+                                            :
+                                            <TableCell component="th" scope="row" color="primary" align="center" size="small">
+                                                <Link to={"/updatesubtask"} state={{ subtask: row, teamName: teamName, projectName: projectName, backlogName: state.iWantTo }} style={{ textDecoration: 'none' }}>
+                                                    <Button variant="contained">Edit Subtask</Button>
+                                                </Link>
+                                            </TableCell>
+
+                                        }
                                     </TableRow>
                                 ))}
                             </TableBody>
                         ) :
-                            ( <div className="propertiesTextLabel">No Data found</div>)
+                            (<div className="propertiesTextLabel">No Data found</div>)
                         }
                     </Table>
                 </TableContainer>

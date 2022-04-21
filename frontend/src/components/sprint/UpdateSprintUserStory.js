@@ -24,8 +24,8 @@ const UpdateSprintUserStory = () => {
     let location = useLocation();
     const thisUserStory = location.state.userStory;
     const projectName = location.state.projectName;
-    const teamName=location.state.teamName;
-    const sprintNum=location.state.sprintNum;
+    const teamName = location.state.teamName;
+    const sprintNum = location.state.sprintNum;
     console.log(thisUserStory)
 
 
@@ -54,8 +54,8 @@ const UpdateSprintUserStory = () => {
                     <div className="titlePage">Update Sprint's User Story</div>
                     <Paper elevation={10} className="paper-style" style={{ padding: 10 }}>
                         <div className="input-container">
-                            <TextField required onChange={handleAsAInput}  value={state.asA} label="As a"  variant="outlined" className="input-field" />
-                            <TextField required onChange={handleIwantToInput}  value={state.iWantTo} label="I want to" variant="outlined" className="input-field" />
+                            <TextField required onChange={handleAsAInput} value={state.asA} label="As a" variant="outlined" className="input-field" />
+                            <TextField required onChange={handleIwantToInput} value={state.iWantTo} label="I want to" variant="outlined" className="input-field" />
                             <TextField required onChange={handleSoIcanInput} value={state.soIcan} label="So I can" variant="outlined" className="input-field" />
                             <TextField required onChange={handlePriorityInput} value={state.priority} abel="Priority" variant="outlined" className="input-field" />
                         </div>
@@ -78,12 +78,12 @@ const UpdateSprintUserStory = () => {
             </div>
 
             <div className="addButton">
-                <Link to={"/addSprintSubtask"} state={{teamName: teamName, projectName:projectName, userStoryName:state.iWantTo, sprintNum:sprintNum }}>
+                <Link to={"/addSprintSubtask"} state={{ teamName: teamName, projectName: projectName, userStoryName: state.iWantTo, sprintNum: sprintNum }}>
                     <Button variant="contained" style={{ color: "#fff", backgroundColor: "rgb(10, 74, 89)" }} > Add Subtask</Button>
                 </Link>
             </div>
 
-            <Paper style={{ padding: 20, marginBottom:'4vh' }}>
+            <Paper style={{ padding: 20, marginBottom: '4vh' }}>
                 <div className="tableCustomHeader"> Sprint's SubTasks</div>
 
                 <TableContainer>
@@ -97,11 +97,11 @@ const UpdateSprintUserStory = () => {
                             </TableRow>
                         </TableHead>
 
-                        {thisUserStory.tasks != undefined && thisUserStory.tasks.length>0 ? (
+                        {thisUserStory.tasks != undefined && thisUserStory.tasks.length > 0 ? (
                             <TableBody>
                                 {thisUserStory.tasks.map((row, index) => (
                                     <TableRow key={index} hover>
-                                        <TableCell component="th" scope="row" color="primary" align="center" size="small"> 
+                                        <TableCell component="th" scope="row" color="primary" align="center" size="small">
                                             {row.description}
                                         </TableCell>
 
@@ -111,16 +111,23 @@ const UpdateSprintUserStory = () => {
                                         <TableCell component="th" scope="row" color="primary" align="center" size="small">
                                             {row.status}
                                         </TableCell>
-                                        <TableCell component="th" scope="row" color="primary" align="center" size="small">
-                                        <Link to={"/updateSprintSubtask"} state={{ subtask: row,teamName: teamName,projectName:projectName, userStoryName:state.iWantTo, sprintNum:sprintNum }}>
-                                            <Button variant="contained">Edit Subtask</Button>
-                                        </Link>
-                                        </TableCell>
+                                        {row.status === "Closed" || row.status === "Completed" ?
+                                            <TableCell component="th" scope="row" color="primary" align="center" size="small">
+                                                <Button variant="contained" disabled={true} >Task Closed</Button>
+                                            </TableCell>
+                                            :
+                                            <TableCell component="th" scope="row" color="primary" align="center" size="small">
+                                                <Link to={"/updateSprintSubtask"} state={{ subtask: row, teamName: teamName, projectName: projectName, userStoryName: state.iWantTo, sprintNum: sprintNum }}>
+                                                    <Button variant="contained">Edit Subtask</Button>
+                                                </Link>
+                                            </TableCell>
+
+                                        }
                                     </TableRow>
                                 ))}
                             </TableBody>
                         ) :
-                            ( <div className="propertiesTextLabel">No Data found</div>)
+                            (<div className="propertiesTextLabel">No Data found</div>)
                         }
                     </Table>
                 </TableContainer>

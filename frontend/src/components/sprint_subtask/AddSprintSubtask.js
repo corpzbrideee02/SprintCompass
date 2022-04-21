@@ -67,7 +67,7 @@ const AddSprintSubtask = () => {
     }
 
     const handleAddSubtask=()=>{
-        navigate(-2);
+        navigate(-3);
         //console.log(data);
     }
 
