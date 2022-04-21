@@ -1,7 +1,7 @@
 import React, { useEffect, useReducer, useState } from "react";
 import { ThemeProvider } from "@mui/material/styles";
 import theme from "../../theme";
-//import jsPDF from "jspdf";
+import jsPDF from "jspdf";
 
 import {
     Paper,
@@ -36,9 +36,12 @@ const ViewSprint = () => {
     const [state, setState] = useReducer(reducer, initialState);
 
     const onCreateReportClicked = () => {
-        //Create pdf with jspdf
-        //let doc = new jsPDF();
-
+        let doc = new jsPDF("p", "pt", "a4");
+        doc.html(document.querySelector("#homePage"), {
+            callback: function(pdf){
+                pdf.save("sprint.pdf");
+            }
+        });
     }
 
     const calcPercentageComplete = () => {

@@ -14,7 +14,7 @@ import {
 import { Link, useLocation,useNavigate } from "react-router-dom";
 import teamServices from "../../services/teamService";
 
-import subtaskServices from "../../services/subtaskServices";
+import sprintSubtaskService from "../../services/sprintSubtaskService";
 
 const UpdateSprintSubtask = () => {
     let location = useLocation();
@@ -23,16 +23,18 @@ const UpdateSprintSubtask = () => {
     const team = location.state.teamName;
     const projectName=location.state.projectName;
     const userStoryName=location.state.userStoryName;
+    const sprintNum=location.state.sprintNum;
 
     const subtaskConstant=location.state.subtask.description; //to be used as an identifier
 
     const initialState = {
         description: subtask.description,
         memberSelected: subtask.member,
+        hoursWorked: subtask.hoursWorked,
         teamMembers: [],
         allSubtasks:[],
-        allBacklogs:[],
-        thisBacklog:null
+        allSprints:[],
+        thisSprint:null
 
     };
     const reducer = (state, newState) => ({ ...state, ...newState });
@@ -42,8 +44,8 @@ const UpdateSprintSubtask = () => {
 
     useEffect(() => {
         teamServices.teamMembersByProject(team, handlefetchTeam);
-       // subtaskServices.fetchBacklogsByProject(projectName, fetchAllbacklogs);
-       // subtaskServices.fetchOneBacklog(backlogName,projectName,fetchOneBacklog);
+        sprintSubtaskService.fetchSprintsByProject(sprintNum,projectName,fetchAllsprints);
+        sprintSubtaskService.fetchOneSprint(sprintNum,userStoryName,projectName,fetchOneSprint);
     }, []);
 
 
@@ -52,35 +54,36 @@ const UpdateSprintSubtask = () => {
     }
 
     const onSaveSubtaskClicked=()=>{
-        /* let subtaskToSave={description: state.description, member:state.memberSelected, status: statusSelected, hoursWorked: 0};
+        let subtaskToSave={description: state.description, member:state.memberSelected, status: statusSelected, hoursWorked: state.hoursWorked};
         const index = state.allSubtasks.findIndex(item => item.description === subtaskConstant);
         let newallSubtasks = [...state.allSubtasks]; // important to create a copy,
         newallSubtasks[index] = subtaskToSave;
-        let projectData={allBackLogs:state.allBackLogs, newallSubtasks:newallSubtasks, backlog:state.thisBacklog, projectName:projectName};
-        subtaskServices.updateSubtask(backlogName,projectData,handleSaveSubtask) */
+        let projectData={allSprints:state.allSprints, newallSubtasks:newallSubtasks, sprint:state.thisSprint, projectName:projectName};
+        console.log(projectData);
+        sprintSubtaskService.updateSprintSubtask(sprintNum,userStoryName,projectData,handleSaveSubtask)
        
         
     }
 
     const handleSaveSubtask=()=>{
-        navigate(-2); //to refresh the list, NOTE: might change this later
+        navigate(-3); //to refresh the list, NOTE: might change this later
     }
 
 
-    /* fetch data */
-    const fetchAllbacklogs=(data)=>{
-        setState({allBackLogs:data.backlog,})
+      const fetchAllsprints=(data)=>{
+        //console.log(data);
+        setState({allSprints:data})
     }
 
-    //neeed for subtask
-    const fetchOneBacklog=(data)=>{
-        setState({allSubtasks:data.tasks, thisBacklog:data})
-    }
+    const fetchOneSprint=(data)=>{
+          setState({allSubtasks:data.tasks, thisSprint:data})
+      }
 
     /**onchange handler */
     const handleDescriptionInput = (e) => {setState({ description: e.target.value });};
     const onChangeMembers = (e, selectedOption) => {setState({ memberSelected: selectedOption });};
     const handleStatusChange = (event) => {setStatusSelected(event.target.value);};
+    const handleHoursWorkedChange = (e) => {setState({ hoursWorked: e.target.value });};
 
     console.log(subtaskConstant)
 
@@ -88,10 +91,11 @@ const UpdateSprintSubtask = () => {
         <ThemeProvider theme={theme}>
             <div className="backlogs-container">
                 <div className="form-content">
-                    <div className="titlePage">Update Subtask</div>
+                    <div className="titlePage">Update Sprint's Subtask</div>
                     <Paper elevation={10} className="paper-style" style={{ padding: 30 }}>
                         <div className="input-container">
                             <TextField required label="Description" value={state.description} onChange={handleDescriptionInput} variant="outlined" className="input-field" />
+                            <TextField required label="Hours Worked" value={state.hoursWorked} onChange={handleHoursWorkedChange} variant="outlined" type="number" className="input-field" />
                             <Autocomplete
                                 style={{ minWidth: "500px", marginBottom: 20 }}
                                 data-testid="autocomplete"

@@ -67,7 +67,7 @@ const AddSprintSubtask = () => {
     }
 
     const handleAddSubtask=()=>{
-        navigate(-2);
+        navigate(-3);
         //console.log(data);
     }
 
@@ -77,7 +77,7 @@ console.log(statusSelected)
             <div className="register-background">
                 <div className="register-container">
                     <div className="form-content">
-                        <div className="titlePage">Add Subtask</div>
+                        <div className="titlePage">Add Sprint's Subtask</div>
                         <Paper elevation={10} className="paper-style" style={{ padding: 30 }}>
                             <div className="input-container">
                                 <TextField label="Description" value={state.description} onChange={handleDescriptionInput} variant="outlined" className="input-field" />
