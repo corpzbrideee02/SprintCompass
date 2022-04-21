@@ -66,6 +66,10 @@ const resolvers = {
         args.backlog.forEach(element => {
             if (element.tasks === undefined)
                 element.tasks = [];
+            if (element.relativeReEstimate == undefined)
+                element.relativeReEstimate  = 0;
+            if (element.costReEstimate == undefined)
+                element.costReEstimate = 0;
         });
             
         let results = await dbRtns.updateOne( db, projects, {projectName: args.projectName }, { backlog: args.backlog } );

@@ -75,7 +75,9 @@ const UpdateBacklog = () => {
                 priority: state.priority,
                 tasks: state.subtasks,
                 initialRelativeEstimate: backlog.initialRelativeEstimate,
-                initialCostEstimate: backlog.initialCostEstimate
+                initialCostEstimate: backlog.initialCostEstimate,
+                relativeReEstimate: 0,
+                costReEstimate: 0
             };
 
             backlogServices.updateBacklog(project, navigate(-1));
@@ -94,7 +96,9 @@ const UpdateBacklog = () => {
                 priority: state.priority,
                 tasks: state.subtasks,
                 initialRelativeEstimate: backlog.initialRelativeEstimate,
-                initialCostEstimate: backlog.initialCostEstimate
+                initialCostEstimate: backlog.initialCostEstimate,
+                relativeReEstimate: 0,
+                costReEstimate: 0
             }
 
             backlogServices.moveToSprint(project, selectSprint, -1, userStory, navigate(-1));

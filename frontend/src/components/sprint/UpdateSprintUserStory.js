@@ -66,42 +66,20 @@ const UpdateSprintUserStory = () => {
             priority: state.priority,
             tasks: thisUserStory.tasks,
             initialRelativeEstimate: thisUserStory.initialRelativeEstimate,
-            initialCostEstimate: thisUserStory.initialCostEstimate
+            initialCostEstimate: thisUserStory.initialCostEstimate,
+            relativeReEstimate: 0,
+            costReEstimate: 0
         } 
         
         if (selectSprint === undefined || selectSprint === '') //save user story changes
         {
             console.log("save user story");
 
-            // project.sprints[sprintNum-1].userStories[currentIndex] = {
-            //     asA: state.asA,
-            //     iWantTo: state.iWantTo,
-            //     soIcan: state.soIcan,
-            //     priority: state.priority,
-            //     tasks: state.subtasks,
-            //     initialRelativeEstimate: thisUserStory.initialRelativeEstimate,
-            //     initialCostEstimate: thisUserStory.initialCostEstimate
-            // };
-
             backlogServices.updateSprint(project, sprintNum-1, currentIndex, userStory, navigate(-2));
         }
         else // move to sprint
         {
-            //project.sprints[sprintNum-1].userStories.splice(index, 1); // remove from original sprint
-            //backlogServices.updateBacklog(project, navigate(-1));
-
             console.log("move to sprint");
-
-            // let userStory = {
-            //     asA: state.asA,
-            //     iWantTo: state.iWantTo,
-            //     soIcan: state.soIcan,
-            //     priority: state.priority,
-            //     tasks: state.subtasks,
-            //     initialRelativeEstimate: thisUserStory.initialRelativeEstimate,
-            //     initialCostEstimate: thisUserStory.initialCostEstimate
-            // } 
-            
             backlogServices.moveToSprint(project, selectSprint, sprintNum-1, userStory, navigate(-2));
         }
     };

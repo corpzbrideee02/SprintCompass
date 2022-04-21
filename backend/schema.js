@@ -74,6 +74,8 @@ const schema = buildSchema(`
         priority: Int
         initialRelativeEstimate: Int
         initialCostEstimate: Float
+        relativeReEstimate: Int
+        costReEstimate: Float
         member: String
         tasks: [SubtaskInput]
     },
@@ -84,6 +86,8 @@ const schema = buildSchema(`
         priority: Int
         initialRelativeEstimate: Int
         initialCostEstimate: Float
+        relativeReEstimate: Int
+        costReEstimate: Float
         member: String
         tasks: [Subtask]
     },
