@@ -111,7 +111,7 @@ const ProjectHome = () => {
                       </TableCell>
 
                       <TableCell  component="th"  scope="row"  color="primary"  align="center" size="small">
-                      <Link to={"/updatebacklog"} state={{ backlog: row, index: index, project: state.projects, sprints: state.projects.sprints, projectName: project.project, user: project.user,team : state.projects.teamName }} style={{textDecoration:'none'}}>
+                      <Link to={"/updatebacklog"} state={{ backlog: row, index: index, project: state.projects, sprints: state.projects.sprints, projectName: project.project, user: project.user,team : state.projects.teamName }} style={{textDecoration:'none'}} >
                         <Button variant="contained">Edit Backlog</Button>
                       </Link>
                       </TableCell>
@@ -166,7 +166,7 @@ const ProjectHome = () => {
 
                       <TableCell component="th" scope="row" color="primary" align="center" size="small">
 
-                        <Link to={"/viewsprint"} state={{ project: row, user: project.user, projectName: project.project, rowNum: (index + 1) }} style={{textDecoration:'none'}}>
+                        <Link to={"/viewsprint"} state={{ project: row, user: project.user, projectName: project.project, rowNum: (index + 1),teamName:project.team }} style={{textDecoration:'none'}}>
                           <Button variant="contained">View Sprint</Button>
                         </Link>
 
