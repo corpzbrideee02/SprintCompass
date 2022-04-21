@@ -166,7 +166,7 @@ const ProjectHome = () => {
 
                       <TableCell component="th" scope="row" color="primary" align="center" size="small">
 
-                        <Link to={"/viewsprint"} state={{ project: row, user: project.user, projectName: project.project, rowNum: (index + 1),teamName:project.team }} style={{textDecoration:'none'}}>
+                        <Link to={"/viewsprint"} state={{ project: state.projects, sprint: row, user: project.user, projectName: project.project, rowNum: (index + 1),teamName:project.team }} style={{textDecoration:'none'}}>
                           <Button variant="contained">View Sprint</Button>
                         </Link>
 

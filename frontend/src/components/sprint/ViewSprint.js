@@ -18,7 +18,8 @@ import { Link, useLocation } from "react-router-dom";
 const ViewSprint = () => {
 
     let location = useLocation();
-    const sprint = location.state.project;
+    const project = location.state.project;
+    const sprint = location.state.sprint;
     const projectName = location.state.projectName;
     const sprintNum = location.state.rowNum;
     const teamName=location.state.teamName;
@@ -104,7 +105,7 @@ const ViewSprint = () => {
                                             </TableCell>
 
                                             <TableCell component="th" scope="row" color="primary" align="center" size="small">
-                                                <Link to={"/updateSprintStory"} state={{ userStory: row, teamName: teamName, projectName:projectName, sprintNum:sprintNum }}>
+                                                <Link to={"/updateSprintStory"} state={{ project: project, userStory: row, teamName: teamName, projectName:projectName, sprintNum:sprintNum, index: index}} style={{textDecoration:'none'}}>
                                                     <Button variant="contained">Edit User Story</Button>
                                                 </Link>
                                             </TableCell>

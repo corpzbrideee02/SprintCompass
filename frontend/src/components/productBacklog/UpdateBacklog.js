@@ -97,7 +97,7 @@ const UpdateBacklog = () => {
                 initialCostEstimate: backlog.initialCostEstimate
             }
 
-            backlogServices.updateSprints(project, selectSprint, -1, userStory, navigate(-1));
+            backlogServices.moveToSprint(project, selectSprint, -1, userStory, navigate(-1));
         }
     };
 

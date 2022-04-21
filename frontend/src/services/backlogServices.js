@@ -95,7 +95,7 @@ const backlogServices = {
     }
   },
 
-  updateSprints: async(project, addIndex, removeIndex, userStory, cb) => {
+  moveToSprint: async(project, addIndex, removeIndex, userStory, cb) => {
     try{
       let response2;
 
@@ -109,6 +109,34 @@ const backlogServices = {
               projectName: "${project.projectName}",
               addIndex: ${addIndex},
               removeIndex: ${removeIndex},
+              userStory: {asA: "${userStory.asA}", iWantTo: "${userStory.iWantTo}", soIcan: "${userStory.soIcan}", tasks:[${ userStory.tasks.map(y=>`{description: "${y.description}", member: "${y.member}", status: "${y.status}", hoursWorked: ${y.hoursWorked}}`)}], priority: ${userStory.priority}, initialRelativeEstimate:${userStory.initialRelativeEstimate}, initialCostEstimate:${userStory.initialCostEstimate}}
+              ){sprints {startDate, endDate, userStories {asA, iWantTo, soIcan, priority, initialRelativeEstimate, initialCostEstimate, member, tasks {description, member, status, hoursWorked} } } }}`,
+          }), 
+        });
+     }
+      let json2 = await response2.json();
+      console.log(json2.data.movetosprint);
+      console.log("updated successfully");
+      cb(); //trigger 
+
+    } catch (error) {
+      console.log(error);
+      //props.dataFromChild(`${error.message} - advisory not added`);
+    }  
+  },
+  updateSprints: async(project, index, userStory, cb) => {
+    try{
+      let response2;
+
+     if (project.sprints !== undefined)
+     {
+        response2 = await fetch(GRAPHURL, {
+          method: METHOD,
+          headers: HEADERS,
+          body: JSON.stringify({
+            query: `mutation{updateprojectsprints(
+              projectName: "${project.projectName}",
+              index: ${index},
               userStory: {asA: "${userStory.asA}", iWantTo: "${userStory.iWantTo}", soIcan: "${userStory.soIcan}", tasks:[${ userStory.tasks.map(y=>`{description: "${y.description}", member: "${y.member}", status: "${y.status}", hoursWorked: ${y.hoursWorked}}`)}], priority: ${userStory.priority}, initialRelativeEstimate:${userStory.initialRelativeEstimate}, initialCostEstimate:${userStory.initialCostEstimate}}
               ){sprints {startDate, endDate, userStories {asA, iWantTo, soIcan, priority, initialRelativeEstimate, initialCostEstimate, member, tasks {description, member, status, hoursWorked} } } }}`,
           }), 
