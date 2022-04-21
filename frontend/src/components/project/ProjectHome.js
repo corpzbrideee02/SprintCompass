@@ -17,6 +17,9 @@ import { Link, useLocation } from "react-router-dom";
 
 import projectServices from "../../services/projectService";
 
+import generateReportList from "../../report/exampleReport";
+import generateProjectReport from "../../report/try";
+
 const ProjectHome = () => {
   let location = useLocation();
 
@@ -43,12 +46,17 @@ const ProjectHome = () => {
   }
 
   // console.log(state.projects);
+  const onClickGenerateReport=()=>{
+    let proj= state.projects;
+    //generateReportList(proj);
+    generateProjectReport(proj);
+  }
 
   return (
     <ThemeProvider theme={theme}>
       <div className="homePage">
         <div className="titlePage">Project</div>
-
+        <Button variant="contained" onClick={onClickGenerateReport}>Generate</Button>
         <table style={{ margin: 'auto' }}>
           <div className="projectHomeTextLabel">
             <tr>
