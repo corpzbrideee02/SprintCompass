@@ -11,9 +11,11 @@ import AddNewTeam from "./components/team/AddNewTeam";
 import UpdateBacklog from "./components/productBacklog/UpdateBacklog";
 import AddBacklog from "./components/productBacklog/AddBacklog";
 import AddSprint from "./components/productBacklog/AddSprint";
-import ViewSprint from "./components/productBacklog/ViewSprint";
+import ViewSprint from "./components/sprint/ViewSprint";
 import UpdateSubtask from "./components/subtask/UpdateSubtask";
 import AddSubtask from "./components/subtask/AddSubtask";
+import UpdateSprintUserStory from "./components/sprint/UpdateSprintUserStory";
+import AddSprintSubtask from "./components/sprint_subtask/AddSprintSubtask";
 
 import {Toolbar, AppBar, Menu,MenuItem,Typography,Card,Snackbar, Button,} from "@mui/material";
 
@@ -67,7 +69,7 @@ const App = () => {
     <ThemeProvider theme={theme}>
       <AppBar position="static">
           <Toolbar>
-            <Typography variant="h6" color="white">
+            <Typography variant="h6" color="black">
               {" "}
               Sprint Compass{" "}
             </Typography>
@@ -99,18 +101,26 @@ const App = () => {
             <Route path="/addnewteam" element={<AddNewTeam />} />
             <Route path="/addproject" element={<AddProject />} />
             <Route path="/project" element={<ProjectHome />} />
+
             <Route path="/addbacklog" element={<AddBacklog/>} />
             <Route path="/updatebacklog" element={<UpdateBacklog/>} />
-            <Route path="/addsprint" element={<AddSprint/>} />
-            <Route path="/viewsprint" element={<ViewSprint/>} />
+
             <Route path="/addsubtask" element={<AddSubtask/>} />
             <Route path="/updatesubtask" element={<UpdateSubtask/>} />
+
+            <Route path="/viewsprint" element={<ViewSprint/>} />
+            <Route path="/addsprint" element={<AddSprint/>} />
+            <Route path="/updateSprintStory" element={<UpdateSprintUserStory/>} />
+
+            <Route path="/addSprintSubtask" element={< AddSprintSubtask/>} />
+           
+            
             <Route path="/logout" element={<Login dataFromChild={msgFromChildComponents}/>} />
           </Routes>
 
 
       <Card className="footer" color="primary">
-        <Typography variant="h7" color="white">
+        <Typography variant="h7" color="black">
           Huron Heights Hive - &copy; {new Date().getFullYear()}
         </Typography>
       </Card>
