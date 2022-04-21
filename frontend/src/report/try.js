@@ -82,7 +82,7 @@ export default function generateProjectReport(primary_data) {
         }
     }
 
-    doc.save("invoice.pdf");
+    doc.save(`${primary_data.projectName}_report.pdf`);
 
 }
 
