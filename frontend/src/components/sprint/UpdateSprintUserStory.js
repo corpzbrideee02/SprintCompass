@@ -167,7 +167,7 @@ const UpdateSprintUserStory = () => {
                                             {row.status}
                                         </TableCell>
                                         <TableCell component="th" scope="row" color="primary" align="center" size="small">
-                                        <Link to={"/"} state={{ subtask: row}} style={{textDecoration:'none'}}>
+                                        <Link to={"/updateSprintSubtask"} state={{ subtask: row,teamName: teamName,projectName:projectName, userStoryName:state.iWantTo, sprintNum:sprintNum }}>
                                             <Button variant="contained">Edit Subtask</Button>
                                         </Link>
                                         </TableCell>

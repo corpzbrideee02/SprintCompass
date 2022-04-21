@@ -16,6 +16,7 @@ import UpdateSubtask from "./components/subtask/UpdateSubtask";
 import AddSubtask from "./components/subtask/AddSubtask";
 import UpdateSprintUserStory from "./components/sprint/UpdateSprintUserStory";
 import AddSprintSubtask from "./components/sprint_subtask/AddSprintSubtask";
+import UpdateSprintSubtask from "./components/sprint_subtask/UpdateSprintSubtask";
 
 import {Toolbar, AppBar, Menu,MenuItem,Typography,Card,Snackbar, Button,} from "@mui/material";
 
@@ -113,7 +114,7 @@ const App = () => {
             <Route path="/updateSprintStory" element={<UpdateSprintUserStory/>} />
 
             <Route path="/addSprintSubtask" element={< AddSprintSubtask/>} />
-           
+            <Route path="/updateSprintSubtask" element={<UpdateSprintSubtask/>} />
             
             <Route path="/logout" element={<Login dataFromChild={msgFromChildComponents}/>} />
           </Routes>
