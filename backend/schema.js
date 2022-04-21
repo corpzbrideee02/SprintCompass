@@ -17,7 +17,7 @@ const schema = buildSchema(`
         addproject(teamName: String, projectName: String, startDate: String, hoursToStoryPoint: Int, velocity: Int, totalEstimatedStoryPoints: Int, totalEstimatedCost: Float, team: [MemberRoleInput] ): Project
         updateprojectbacklog(projectName: String, backlog: [UserStoryInput]): Project
         addnewsprint(projectName: String, startDate: String, endDate: String): Project
-        updateprojectsprints(projectName: index: Int, userStory: UserStoryInput): Project
+        updateprojectsprints(projectName: String, sprintIndex: Int, userStoryIndex: Int, userStory: UserStoryInput): Project
         movetosprint(projectName: String, addIndex: Int, removeIndex: Int, userStory: UserStoryInput): Project
     },
     input ProjectRoleInput {

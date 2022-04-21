@@ -124,7 +124,7 @@ const backlogServices = {
       //props.dataFromChild(`${error.message} - advisory not added`);
     }  
   },
-  updateSprints: async(project, index, userStory, cb) => {
+  updateSprint: async(project, sprintIndex, userStoryIndex, userStory, cb) => {
     try{
       let response2;
 
@@ -136,7 +136,8 @@ const backlogServices = {
           body: JSON.stringify({
             query: `mutation{updateprojectsprints(
               projectName: "${project.projectName}",
-              index: ${index},
+              sprintIndex: ${sprintIndex},
+              userStoryIndex: ${userStoryIndex},
               userStory: {asA: "${userStory.asA}", iWantTo: "${userStory.iWantTo}", soIcan: "${userStory.soIcan}", tasks:[${ userStory.tasks.map(y=>`{description: "${y.description}", member: "${y.member}", status: "${y.status}", hoursWorked: ${y.hoursWorked}}`)}], priority: ${userStory.priority}, initialRelativeEstimate:${userStory.initialRelativeEstimate}, initialCostEstimate:${userStory.initialCostEstimate}}
               ){sprints {startDate, endDate, userStories {asA, iWantTo, soIcan, priority, initialRelativeEstimate, initialCostEstimate, member, tasks {description, member, status, hoursWorked} } } }}`,
           }), 

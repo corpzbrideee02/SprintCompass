@@ -33,6 +33,7 @@ const UpdateSprintUserStory = () => {
     const currentIndex = location.state.index;
     console.log(thisUserStory)
 
+    const newSprintAvailable = sprintNum < sprints.length;
 
     const [selectSprint, setSelectSprint] = useState('');
 
@@ -57,22 +58,32 @@ const UpdateSprintUserStory = () => {
     };
 
     const updateUserStory = () => {
+
+        let userStory = {
+            asA: state.asA,
+            iWantTo: state.iWantTo,
+            soIcan: state.soIcan,
+            priority: state.priority,
+            tasks: thisUserStory.tasks,
+            initialRelativeEstimate: thisUserStory.initialRelativeEstimate,
+            initialCostEstimate: thisUserStory.initialCostEstimate
+        } 
         
         if (selectSprint === undefined || selectSprint === '') //save user story changes
         {
             console.log("save user story");
 
-            project.sprints[sprintNum-1].userStories[currentIndex] = {
-                asA: state.asA,
-                iWantTo: state.iWantTo,
-                soIcan: state.soIcan,
-                priority: state.priority,
-                tasks: state.subtasks,
-                initialRelativeEstimate: thisUserStory.initialRelativeEstimate,
-                initialCostEstimate: thisUserStory.initialCostEstimate
-            };
+            // project.sprints[sprintNum-1].userStories[currentIndex] = {
+            //     asA: state.asA,
+            //     iWantTo: state.iWantTo,
+            //     soIcan: state.soIcan,
+            //     priority: state.priority,
+            //     tasks: state.subtasks,
+            //     initialRelativeEstimate: thisUserStory.initialRelativeEstimate,
+            //     initialCostEstimate: thisUserStory.initialCostEstimate
+            // };
 
-            backlogServices.updateSprint(project, navigate(-1));
+            backlogServices.updateSprint(project, sprintNum-1, currentIndex, userStory, navigate(-2));
         }
         else // move to sprint
         {
@@ -81,17 +92,17 @@ const UpdateSprintUserStory = () => {
 
             console.log("move to sprint");
 
-            let userStory = {
-                asA: state.asA,
-                iWantTo: state.iWantTo,
-                soIcan: state.soIcan,
-                priority: state.priority,
-                tasks: state.subtasks,
-                initialRelativeEstimate: thisUserStory.initialRelativeEstimate,
-                initialCostEstimate: thisUserStory.initialCostEstimate
-            } 
+            // let userStory = {
+            //     asA: state.asA,
+            //     iWantTo: state.iWantTo,
+            //     soIcan: state.soIcan,
+            //     priority: state.priority,
+            //     tasks: state.subtasks,
+            //     initialRelativeEstimate: thisUserStory.initialRelativeEstimate,
+            //     initialCostEstimate: thisUserStory.initialCostEstimate
+            // } 
             
-            backlogServices.moveToSprint(project, selectSprint, sprintNum-1, userStory, navigate(-1));
+            backlogServices.moveToSprint(project, selectSprint, sprintNum-1, userStory, navigate(-2));
         }
     };
 
@@ -112,21 +123,31 @@ const UpdateSprintUserStory = () => {
                 </div>
                 {/*NOTE: insert "move userStory to sprint" functionality  */}
                 <div>
+                    
                     <div className="input-container">
-                    <FormControl fullWidth className="input-field">
-                            <InputLabel id="demo-simple-select-label">Move to Sprint</InputLabel>
-                            <Select
-                                value={selectSprint}
-                                label="Move to Sprint"
-                                onChange={handleSprintChange}
-                            >
-                                {/* {sprints.map((row, index) => (
-
-                                    <MenuItem value={index}>{index+1}</MenuItem>
-                                ))} */}
-                                <MenuItem value={sprintNum}>{sprintNum+1}</MenuItem>
-                            </Select>
+                    {newSprintAvailable &&
+                        <FormControl fullWidth className="input-field">
+                                <InputLabel id="demo-simple-select-label">Move to Sprint</InputLabel>
+                                    <Select
+                                        value={selectSprint}
+                                        label="Move to Sprint"
+                                        onChange={handleSprintChange}
+                                    >
+                                            <MenuItem value={sprintNum}>{sprintNum+1}</MenuItem>                              
+                                    </Select>
                         </FormControl>
+                    }
+                    {!newSprintAvailable &&
+                        <FormControl fullWidth className="input-field">
+                            <InputLabel id="demo-simple-select-label">No new sprint available</InputLabel>
+                                <Select
+                                    value={selectSprint}
+                                    label="No new sprint available"
+                                >                          
+                                </Select>
+                        
+                        </FormControl>
+                    }
 
                         <Button variant="contained" style={{ width: 100 }} onClick={() => updateUserStory()}> Save</Button>
                     </div>
@@ -167,7 +188,7 @@ const UpdateSprintUserStory = () => {
                                             {row.status}
                                         </TableCell>
                                         <TableCell component="th" scope="row" color="primary" align="center" size="small">
-                                        <Link to={"/updateSprintSubtask"} state={{ subtask: row,teamName: teamName,projectName:projectName, userStoryName:state.iWantTo, sprintNum:sprintNum }}>
+                                        <Link to={"/updateSprintSubtask"} state={{ subtask: row,teamName: teamName,projectName:projectName, userStoryName:state.iWantTo, sprintNum:sprintNum }} style={{textDecoration:'none'}}>
                                             <Button variant="contained">Edit Subtask</Button>
                                         </Link>
                                         </TableCell>

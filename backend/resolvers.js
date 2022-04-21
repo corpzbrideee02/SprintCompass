@@ -84,7 +84,11 @@ const resolvers = {
     },
     updateprojectsprints: async (args) => {
         let db = await dbRtns.getDBInstance();
-        let results = await dbRtns.updateOne( db, projects, {projectName: args.projectName }, { sprints: args.sprints } );
+        let project = await dbRtns.findOne(db, projects, { projectName: args.projectName });
+
+        project.sprints[args.sprintIndex].userStories[args.userStoryIndex] = args.userStory;
+
+        let results = await dbRtns.updateOne( db, projects, {projectName: args.projectName }, { sprints: project.sprints } );
         return  results.lastErrorObject.updatedExisting ? await dbRtns.findOne(db, projects, { projectName: args.projectName } ) : null;
     },
     movetosprint: async (args) => {

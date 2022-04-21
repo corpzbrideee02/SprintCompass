@@ -59,7 +59,7 @@ const AddSprint = () => {
             endDate: state.endDate
         }
         backlogServices.addNewSprint(sprintToAdd,handleAfterAddClick)
-        // navigate(-1);
+        navigate(-1);
     }
 
     //NOTE: disabled Add button if not all fields are entered
