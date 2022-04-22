@@ -149,7 +149,7 @@ export default function generateProjectReport(email,primary_data) {
 
                                 doc.setFillColor(183,218,220);
                                 doc.rect(15, 48 + (i * 100), 180, 12, 'F');
-                                doc.text(20, 53 + (i * 100), `User Story: ${userStories.iWanTo}`);
+                                doc.text(20, 53 + (i * 100), `User Story: ${userStories.iWantTo}`);
                                 // values2 = tasks.filter(item=>item.member === data_member).map((element) => Object.values(element));
                                 //total_hour_worked=tasks.filter(item=>item.member === data_member).reduce((total, item) => item.hoursWorked + total, 0);
                                 let taskCopy = [...tasks];
