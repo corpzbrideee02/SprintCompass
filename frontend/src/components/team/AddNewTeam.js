@@ -1,5 +1,5 @@
 import React, { useEffect, useReducer, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import {
   Paper,
   Autocomplete,
@@ -14,6 +14,7 @@ import "./team.css";
 const AddNewTeam = () => {
 
   let location = useLocation();
+  let navigate = useNavigate();
   const selectedUser = location.state.user;
   //console.log(selectedUser)
 
@@ -21,7 +22,7 @@ const AddNewTeam = () => {
     users: [],
     teamName: "",
     userSelected: null,
-    tempMembersToAdd: []
+    tempMembersToAdd: [{ firstName: selectedUser.firstName, lastName: selectedUser.lastName, email: selectedUser.email, role: "PMO" }]
 
   };
   const reducer = (state, newState) => ({ ...state, ...newState });
@@ -31,7 +32,7 @@ const AddNewTeam = () => {
 
   const handleFetchUsers = (data) => {
     // console.log(data);
-    setState({ users: data });
+    setState({ users: data.filter(d => d.email != selectedUser.email) });
   };
 
   const handleTeamNameInput = (e) => {
@@ -47,7 +48,7 @@ const AddNewTeam = () => {
   };
 
   const handleAfterCreateNewTeam = () => {
-
+    navigate(-1);
   };
 
 
@@ -57,11 +58,16 @@ const AddNewTeam = () => {
     let someUser = state.users.find(e => e.email === state.userSelected);
     let role = (selectedUser.email === state.userSelected ? "PMO" : "Team Member");
     let membersToAdd = { firstName: someUser.firstName, lastName: someUser.lastName, email: state.userSelected, role: role };
-    state.tempMembersToAdd.push(membersToAdd);
+
+    if (state.tempMembersToAdd.find(member => member.email === membersToAdd.email) === undefined)
+      state.tempMembersToAdd.push(membersToAdd);
+    
+      setState({ usersSelected: '' });
+
   }
 
   const onResetMemberClicked = () => {
-    setState({ tempMembersToAdd: [] })
+    setState({ tempMembersToAdd: [{ firstName: selectedUser.firstName, lastName: selectedUser.lastName, email: selectedUser.email, role: "PMO" }] })
   }
 
   const onChange = (e, selectedOption) => {
@@ -71,12 +77,15 @@ const AddNewTeam = () => {
 
   const onCreateNewTeamCLicked = async () => {
 
-    let updateMember = {
-      email: state.userSelected,
-      team: state.teamName,
-    };
-    // teamServices.updateuserteams(updateMember,handleAfterAddMember);
+    state.tempMembersToAdd.forEach(member => {
+      let updateMember = {
+        email: member.email,
+        team: state.teamName,
+      };
 
+      teamServices.updateuserteams(updateMember, handleAfterAddMember);
+    });
+    
     let createNewTeam = {
       name: state.teamName,
       list: state.tempMembersToAdd

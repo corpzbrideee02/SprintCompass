@@ -57,22 +57,22 @@ const teamServices = {
   updateuserteams: async (user, cb) => {
 
     try {
-        let response1 = await fetch(GRAPHURL, {
-            method: METHOD,
-            headers: HEADERS,
-            body: JSON.stringify({
-              query: `query { users { firstName, lastName, email, password, teams, projects { team } } }`,
-            }),
-          });
-        let json1 = await response1.json();
-        let teamsOfUser=json1.data.users.find(x=>x.email===user.email).teams;
-        teamsOfUser.push(user.team);
+        // let response1 = await fetch(GRAPHURL, {
+        //     method: METHOD,
+        //     headers: HEADERS,
+        //     body: JSON.stringify({
+        //       query: `query { users { firstName, lastName, email, password, teams, projects { team } } }`,
+        //     }),
+        //   });
+        // let json1 = await response1.json();
+        // let teamsOfUser=json1.data.users.find(x=>x.email===user.email).teams;
+        // teamsOfUser.push(user.team);
 
       let response2 = await fetch(GRAPHURL, {
         method: METHOD,
         headers: HEADERS,
         body: JSON.stringify({
-          query: `mutation{updateuserteams(email: "${user.email}", teams: \[${teamsOfUser.map(x=>`"${x}"`)}\]){ firstName, lastName, email, password, teams }}`,
+          query: `mutation{updateuserteams(email: "${user.email}", team: "${user.team}"){ firstName, lastName, email, password, teams }}`,
         }), 
       });
       let json2 = await response2.json();

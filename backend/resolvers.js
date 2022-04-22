@@ -17,9 +17,18 @@ const resolvers = {
         return await dbRtns.findOne( db, users, { email: args.email, password: args.password } )
     },
     updateuserteams: async (args) => {
+        // let db = await dbRtns.getDBInstance();
+        // let results = await dbRtns.updateOne( db, users, { email: args.email }, { teams: args.teams } );
+        // return  results.lastErrorObject.updatedExisting ? await dbRtns.findOne( db, users, { email: args.email } ) : null;
+
+        console.log("in the resolver");
         let db = await dbRtns.getDBInstance();
-        let results = await dbRtns.updateOne( db, users, { email: args.email }, { teams: args.teams } );
-        return  results.lastErrorObject.updatedExisting ? await dbRtns.findOne( db, users, { email: args.email } ) : null;
+
+        let user = await dbRtns.findOne( db, users, { email: args.email } );
+        user.teams.push(args.team);
+
+        let results = await dbRtns.updateOne( db, users, { email: args.email }, { teams:user.teams } );
+        return  results.lastErrorObject.updatedExisting ? await dbRtns.findOne(db, users, { email: args.email } ) : null;
     },
     updateuserprojects: async (args) => {
 
