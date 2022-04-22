@@ -5,7 +5,6 @@ import { Paper, TableContainer, TableCell, TableRow, Table, TableBody, TableHead
 
 import "./Home.css";
 import { Link, useLocation } from "react-router-dom";
-import generateProjectReport from "../../report/try";
 import projectServices from "../../services/projectService";
 import { fontStyle } from "@mui/system";
 
@@ -22,10 +21,7 @@ const Home = (props) => {
 
   const [teams, setTeams]=useState([]); //variable to fetch teams
 
-  const onClickGenerateReport=()=>{
- let data=0;
-    generateProjectReport(data);
-  }
+
 
 
   const handleFetchTeams=(data)=>{
@@ -41,7 +37,6 @@ const Home = (props) => {
     <ThemeProvider theme={theme}>
       <div className="homePage">
         <div className="titlePage">Dashboard</div>
-        <Button variant="contained" onClick={onClickGenerateReport}>Generate</Button>
         <div style={{display: "flow-root"}}>
           
         <Link to={"/addproject"} state={{ user: user }}>

@@ -2,12 +2,12 @@
 import { jsPDF } from "jspdf";
 import 'jspdf-autotable';
 
-export default function generateProjectReport(data) {
+export default function generateProjectReport(email,primary_data) {
 
     let data_member = "dc@gmail.com";
     //var total_hour_worked=0;
     /************************************************************************************************** MOCK DATA *********************************************************************************** */
-    let primary_data = {
+    let primary_data2 = {
         projectName: "Test Project 2",
         sprints: [
             {
@@ -153,7 +153,7 @@ export default function generateProjectReport(data) {
                                 // values2 = tasks.filter(item=>item.member === data_member).map((element) => Object.values(element));
                                 //total_hour_worked=tasks.filter(item=>item.member === data_member).reduce((total, item) => item.hoursWorked + total, 0);
                                 let taskCopy = [...tasks];
-                                taskCopy = tasks.filter(item => item.member === data_member);
+                                taskCopy = tasks.filter(item => item.member === email);
                                 values2 = taskCopy.map((element) => Object.values(element));
 
                                 if (taskCopy.length>0) {

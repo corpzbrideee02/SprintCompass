@@ -25,6 +25,7 @@ const ProjectHome = () => {
 
   //console.log(location.state.selectedRow);
   const project = location.state.selectedRow;
+  const email=location.state.user;
   console.log(project);
 
   const initialState = {
@@ -49,7 +50,7 @@ const ProjectHome = () => {
   const onClickGenerateReport=()=>{
     let proj= state.projects;
     //generateReportList(proj);
-    generateProjectReport(proj);
+    generateProjectReport(email,proj);
   }
 
   return (
