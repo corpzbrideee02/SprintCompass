@@ -88,7 +88,6 @@ const AddNewTeam = () => {
       name: state.teamName,
       list: state.tempMembersToAdd
     };
-
     teamServices.addNewTeam(createNewTeam, handleAfterCreateNewTeam);
   };
 

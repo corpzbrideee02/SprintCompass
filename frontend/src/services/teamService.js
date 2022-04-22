@@ -47,7 +47,7 @@ const teamServices = {
             }),
           });
           let json = await response.json();
-    
+          //console.log(json.data.addteam);
           cb(); //trigger the handleAfterCreateNewTeam
         } catch (error) {
           console.log(error);

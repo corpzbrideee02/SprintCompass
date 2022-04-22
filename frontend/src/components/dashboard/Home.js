@@ -5,22 +5,43 @@ import { Paper, TableContainer, TableCell, TableRow, Table, TableBody, TableHead
 
 import "./Home.css";
 import { Link, useLocation } from "react-router-dom";
-
+import generateProjectReport from "../../report/try";
 import projectServices from "../../services/projectService";
 import { fontStyle } from "@mui/system";
+
+import userServices from "../../services/userService";
 
 const Home = (props) => {
   let location = useLocation();
 
   let user = location.state.userInfo;
-  console.log(user);
+  //console.log(user);
 
- 
+  let email=location.state.userInfo.email;
+
+
+  const [teams, setTeams]=useState([]); //variable to fetch teams
+
+  const onClickGenerateReport=()=>{
+ let data=0;
+    generateProjectReport(data);
+  }
+
+
+  const handleFetchTeams=(data)=>{
+    setTeams(data);
+  };
+
+  useEffect(() => {
+    userServices.fetchUsersTeams(email,handleFetchTeams);
+  }, []);
+  
 
   return (
     <ThemeProvider theme={theme}>
       <div className="homePage">
         <div className="titlePage">Dashboard</div>
+        <Button variant="contained" onClick={onClickGenerateReport}>Generate</Button>
         <div style={{display: "flow-root"}}>
           
         <Link to={"/addproject"} state={{ user: user }}>
@@ -77,7 +98,7 @@ const Home = (props) => {
         <TableContainer>
           <Table sx={{ minWidth: 350, padding: 20 }} aria-label="simple table">
             <TableBody>
-              {user.teams.map((row, index) => (
+              {teams.map((row, index) => (
                 <TableRow key={index} hover>
                   <TableCell component="th"  scope="row"  color="primary" align="center" > {row} <br /> </TableCell>
                 </TableRow>

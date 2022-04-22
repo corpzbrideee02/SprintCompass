@@ -2,8 +2,98 @@
 import { jsPDF } from "jspdf";
 import 'jspdf-autotable';
 
-export default function generateProjectReport(primary_data) {
+export default function generateProjectReport(data) {
 
+    let data_member = "dc@gmail.com";
+    //var total_hour_worked=0;
+    /************************************************************************************************** MOCK DATA *********************************************************************************** */
+    let primary_data = {
+        projectName: "Test Project 2",
+        sprints: [
+            {
+                startDate: "2022/06/19",
+                endDate: "2022/06/19",
+                userStories: [
+                    {
+                        asA: "Team Member",
+                        iWanTo: "Generate summary report",
+                        initialCostEstimate: 250.00,
+                        initialRelativeEstimate: 6,
+                        relativeReEstimate: 2,
+                        costReEstimate: 500.00,
+                        priority: 1,
+                        tasks: [{
+                            description: "[Chore] create 1st task function",
+                            member: "dc@gmail.com",
+                            status: "Closed",
+                            hoursWorked: 7
+                        },
+                        {
+                            description: "[Chore] 2nd task using JSPDF",
+                            member: "test@yahoo.com",
+                            status: "Closed",
+                            hoursWorked: 8
+                        },
+                        {
+                            description: "[Chore] create another function",
+                            member: "dc@gmail.com",
+                            status: "Closed",
+                            hoursWorked: 10
+                        },
+                        {
+                            description: "[Chore] create another 2 function",
+                            member: "dc@gmail.com",
+                            status: "Closed",
+                            hoursWorked: 7
+                        },
+                        {
+                            description: "[Chore] gen pdf using JSPDF",
+                            member: "test@yahoo.com",
+                            status: "Closed",
+                            hoursWorked: 8
+                        },
+                        ]
+
+                    },
+
+                ]
+            },
+            {
+                startDate: "2019/11/11",
+                endDate: "2019/12/12",
+                userStories: [
+                    {
+                        asA: "Team Member",
+                        iWanTo: "Copy user something",
+                        initialCostEstimate: 400.00,
+                        initialRelativeEstimate: 6,
+                        relativeReEstimate: 2,
+                        costReEstimate: 800.00,
+                        priority: 1,
+                        tasks: [{
+                            description: "[Chore] add a service file",
+                            member: "test@yahoo.com",
+                            status: "Closed",
+                            hoursWorked: 10
+                        },
+                        {
+                            description: "[Chore] create a alert button",
+                            member: "dc@gmail.com",
+                            status: "Closed",
+                            hoursWorked: 8
+                        }
+                        ]
+
+                    }
+                ]
+            }
+
+
+        ]
+    };
+
+
+    /************************************************************************************************** MOCK DATA *********************************************************************************** */
 
 
     const doc = new jsPDF();
@@ -37,18 +127,18 @@ export default function generateProjectReport(primary_data) {
 
 
                 if (userStories != undefined) {
-                    values = userStories.map((element) => Object.values(element));
-                    doc.autoTable({
-                        startX: 20,
-                        startY: 55,
-                        fillColor: 'red',
-                        head: [['AS A', 'I WANT TO', 'SO I CAN', 'PRIORITY', 'REL ESTIMATE', 'COST ESTIMATE']],
-                        body: values,
-                        headerStyles: {
-                            fillColor: [25, 137, 144],
-                            fontSize: 9,
-                        },
-                    });
+                    /*  values = userStories.map((element) => Object.values(element));
+                     doc.autoTable({
+                         startX: 20,
+                         startY: 55+(i*40)+(userStories.length),
+                         fillColor: 'red',
+                         head: [['AS A', 'I WANT TO', 'SO I CAN', 'PRIORITY', 'REL ESTIMATE', 'COST ESTIMATE']],
+                         body: values,
+                         headerStyles: {
+                             fillColor: [25, 137, 144],
+                             fontSize: 9,
+                         },
+                     }); */
 
                     for (var j = 0; j <= primary_data.sprints[i].userStories.length; j++) {
                         if (primary_data.sprints[i].userStories != undefined) {
@@ -56,23 +146,41 @@ export default function generateProjectReport(primary_data) {
                             if (userStories != undefined) {
                                 let tasks = userStories.tasks;
                                 let values2 = [];
-                                values2 = tasks.map((element) => Object.values(element));
-                                doc.autoTable({
-                                    startX: 20,
-                                    startY: 150,
-                                    fillColor: 'red',
-                                    head: [['TASK DESCRIPTION', 'MEMBER', 'STATUS', 'HOURS WORKED']],
-                                    body: values2,
-                                    headerStyles: {
-                                        fillColor: [25, 137, 144],
-                                        fontSize: 9,
-                                    },
-                                });
+
+                                doc.setFillColor(183,218,220);
+                                doc.rect(15, 48 + (i * 100), 180, 12, 'F');
+                                doc.text(20, 53 + (i * 100), `User Story: ${userStories.iWanTo}`);
+                                // values2 = tasks.filter(item=>item.member === data_member).map((element) => Object.values(element));
+                                //total_hour_worked=tasks.filter(item=>item.member === data_member).reduce((total, item) => item.hoursWorked + total, 0);
+                                let taskCopy = [...tasks];
+                                taskCopy = tasks.filter(item => item.member === data_member);
+                                values2 = taskCopy.map((element) => Object.values(element));
+
+                                if (taskCopy.length>0) {
+                                    let total_hour_worked = 0;
+                                    total_hour_worked += taskCopy.reduce((total, item) => item.hoursWorked + total, 0);
+                                    doc.autoTable({
+                                        startX: 20,
+                                        startY: 55 + (i * 100),
+                                        fillColor: 'red',
+                                        head: [['TASK DESCRIPTION', 'MEMBER', 'STATUS', 'HOURS WORKED']],
+                                        body: values2,
+                                        headerStyles: {
+                                            fillColor: [25, 137, 144],
+                                            fontSize: 9,
+                                        },
+                                    });
+                                    
+                                    doc.text(140, 53 + (i * 100), `Total Hours Worked: ${total_hour_worked} hours`);
+                                }
+
 
                             }
-                        }
 
-                    }
+                        }//end if
+
+                    }//end for
+
 
                 }
             }

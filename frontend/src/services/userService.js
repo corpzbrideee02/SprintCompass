@@ -23,5 +23,23 @@ const userServices = {
       //props.dataFromChild(`Problem loading server data - ${error.message}`);
     }
   },
+
+   //fetch teams of user
+   fetchUsersTeams: async (email,cb) => {
+    try {
+      let response = await fetch(GRAPHURL, {
+        method: METHOD,
+        headers: HEADERS,
+        body: JSON.stringify({
+          query:
+            "query { users { firstName, lastName, email, password, teams, projects { project, role, team } } }",
+        }),
+      });
+      let json = await response.json();
+      cb(json.data.users.find(e=>e.email===email).teams);
+    } catch (error) {
+      console.log(error);
+    }
+  },
 };
 export default userServices;
