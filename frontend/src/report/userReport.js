@@ -1,4 +1,4 @@
-'use strict';
+
 import { jsPDF } from "jspdf";
 import 'jspdf-autotable';
 
@@ -38,7 +38,7 @@ export default function generateProjectReport(email,primary_data) {
 
                                 doc.setFillColor(183,218,220);
                                 doc.rect(15, 48 + (i * 100), 180, 12, 'F');
-                                doc.text(20, 53 + (i * 100), `User Story: ${userStories.iWanTo}`);
+                                doc.text(20, 53 + (i * 100), `User Story: ${userStories.iWantTo}`);
                                 let taskCopy = [...tasks];
                                 taskCopy = tasks.filter(item => item.member === email);
                                 values2 = taskCopy.map((element) => Object.values(element));
