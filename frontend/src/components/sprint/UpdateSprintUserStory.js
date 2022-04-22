@@ -17,7 +17,7 @@ import {
     FormControl,
     InputLabel
 } from "@mui/material";
-import { Link, useLocation,  useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import backlogServices from "../../services/backlogServices";
 
 const UpdateSprintUserStory = () => {
@@ -26,8 +26,8 @@ const UpdateSprintUserStory = () => {
     let navigate = useNavigate();
     const thisUserStory = location.state.userStory;
     const projectName = location.state.projectName;
-    const teamName=location.state.teamName;
-    const sprintNum=location.state.sprintNum;
+    const teamName = location.state.teamName;
+    const sprintNum = location.state.sprintNum;
     const project = location.state.project;
     const sprints = location.state.project.sprints;
     const currentIndex = location.state.index;
@@ -42,6 +42,8 @@ const UpdateSprintUserStory = () => {
         iWantTo: thisUserStory.iWantTo,
         soIcan: thisUserStory.soIcan,
         priority: thisUserStory.priority,
+        relativeReEstimate: thisUserStory.relativeReEstimate,
+        costReEstimate: thisUserStory.costReEstimate
     };
     const reducer = (state, newState) => ({ ...state, ...newState });
     const [state, setState] = useReducer(reducer, initialState);
@@ -52,6 +54,8 @@ const UpdateSprintUserStory = () => {
     const handleIwantToInput = (e) => { setState({ iWantTo: e.target.value }) };
     const handleSoIcanInput = (e) => { setState({ soIcan: e.target.value }) };
     const handlePriorityInput = (e) => { setState({ priority: e.target.value }) };
+    const handleRelativeReEstimate = (e) => { setState({ relativeReEstimate: e.target.value }) };
+    const handleCostReEstimate = (e) => { setState({ costReEstimate: e.target.value }) };
 
     const handleSprintChange = (event) => {
         setSelectSprint(event.target.value);
@@ -67,22 +71,26 @@ const UpdateSprintUserStory = () => {
             tasks: thisUserStory.tasks,
             initialRelativeEstimate: thisUserStory.initialRelativeEstimate,
             initialCostEstimate: thisUserStory.initialCostEstimate,
-            relativeReEstimate: 0,
-            costReEstimate: 0
-        } 
-        
+            relativeReEstimate: parseInt(state.relativeReEstimate),
+            costReEstimate: parseFloat(state.costReEstimate)
+        }
+
         if (selectSprint === undefined || selectSprint === '') //save user story changes
         {
             console.log("save user story");
 
-            backlogServices.updateSprint(project, sprintNum-1, currentIndex, userStory, navigate(-2));
+            backlogServices.updateSprint(project, sprintNum - 1, currentIndex, userStory, handleAfterSavingUserStory);
         }
         else // move to sprint
         {
             console.log("move to sprint");
-            backlogServices.moveToSprint(project, selectSprint, sprintNum-1, userStory, navigate(-2));
+            backlogServices.moveToSprint(project, selectSprint, sprintNum - 1, userStory, handleAfterMovingToSprint);
         }
     };
+
+    const handleAfterSavingUserStory=()=>{navigate(-2);}
+
+    const handleAfterMovingToSprint=()=>{navigate(-2);}
 
 
     return (
@@ -92,40 +100,42 @@ const UpdateSprintUserStory = () => {
                     <div className="titlePage">Update Sprint's User Story</div>
                     <Paper elevation={10} className="paper-style" style={{ padding: 10 }}>
                         <div className="input-container">
-                            <TextField required onChange={handleAsAInput}  value={state.asA} label="As a"  variant="outlined" className="input-field" />
-                            <TextField required onChange={handleIwantToInput}  value={state.iWantTo} label="I want to" variant="outlined" className="input-field" />
+                            <TextField required onChange={handleAsAInput} value={state.asA} label="As a" variant="outlined" className="input-field" />
+                            <TextField required onChange={handleIwantToInput} value={state.iWantTo} label="I want to" variant="outlined" className="input-field" />
                             <TextField required onChange={handleSoIcanInput} value={state.soIcan} label="So I can" variant="outlined" className="input-field" />
-                            <TextField required onChange={handlePriorityInput} value={state.priority} abel="Priority" variant="outlined" className="input-field" />
+                            <TextField required onChange={handlePriorityInput} value={state.priority} label="Priority" variant="outlined" className="input-field" />
+                            <TextField required onChange={handleRelativeReEstimate} value={state.relativeReEstimate} label="Relative ReEstimate" variant="outlined" className="input-field" />
+                            <TextField required onChange={handleCostReEstimate} value={state.costReEstimate} label="Cost ReEstimate" variant="outlined" className="input-field" />
                         </div>
                     </Paper>
                 </div>
                 {/*NOTE: insert "move userStory to sprint" functionality  */}
                 <div>
-                    
+
                     <div className="input-container">
-                    {newSprintAvailable &&
-                        <FormControl fullWidth className="input-field">
+                        {newSprintAvailable &&
+                            <FormControl fullWidth className="input-field">
                                 <InputLabel id="demo-simple-select-label">Move to Sprint</InputLabel>
-                                    <Select
-                                        value={selectSprint}
-                                        label="Move to Sprint"
-                                        onChange={handleSprintChange}
-                                    >
-                                            <MenuItem value={sprintNum}>{sprintNum+1}</MenuItem>                              
-                                    </Select>
-                        </FormControl>
-                    }
-                    {!newSprintAvailable &&
-                        <FormControl fullWidth className="input-field">
-                            <InputLabel id="demo-simple-select-label">No new sprint available</InputLabel>
+                                <Select
+                                    value={selectSprint}
+                                    label="Move to Sprint"
+                                    onChange={handleSprintChange}
+                                >
+                                    <MenuItem value={sprintNum}>{sprintNum + 1}</MenuItem>
+                                </Select>
+                            </FormControl>
+                        }
+                        {!newSprintAvailable &&
+                            <FormControl fullWidth className="input-field">
+                                <InputLabel id="demo-simple-select-label">No new sprint available</InputLabel>
                                 <Select
                                     value={selectSprint}
                                     label="No new sprint available"
-                                >                          
+                                >
                                 </Select>
-                        
-                        </FormControl>
-                    }
+
+                            </FormControl>
+                        }
 
                         <Button variant="contained" style={{ width: 100 }} onClick={() => updateUserStory()}> Save</Button>
                     </div>
@@ -133,7 +143,7 @@ const UpdateSprintUserStory = () => {
             </div>
 
             <div className="addButton">
-                <Link to={"/addSprintSubtask"} state={{teamName: teamName, projectName:projectName, userStoryName:state.iWantTo, sprintNum:sprintNum }} style={{textDecoration:'none'}}>
+                <Link to={"/addSprintSubtask"} state={{ teamName: teamName, projectName: projectName, userStoryName: state.iWantTo, sprintNum: sprintNum }} style={{ textDecoration: 'none' }}>
                     <Button variant="contained" style={{ color: "#fff", backgroundColor: "rgb(10, 74, 89)" }} > Add Subtask</Button>
                 </Link>
             </div>
@@ -151,11 +161,11 @@ const UpdateSprintUserStory = () => {
                             </TableRow>
                         </TableHead>
 
-                        {thisUserStory.tasks != undefined && thisUserStory.tasks.length>0 ? (
+                        {thisUserStory.tasks != undefined && thisUserStory.tasks.length > 0 ? (
                             <TableBody>
                                 {thisUserStory.tasks.map((row, index) => (
                                     <TableRow key={index} hover>
-                                        <TableCell component="th" scope="row" color="primary" align="center" size="small"> 
+                                        <TableCell component="th" scope="row" color="primary" align="center" size="small">
                                             {row.description}
                                         </TableCell>
 
@@ -171,7 +181,7 @@ const UpdateSprintUserStory = () => {
                                             </TableCell>
                                             :
                                             <TableCell component="th" scope="row" color="primary" align="center" size="small">
-                                                <Link to={"/updateSprintSubtask"} state={{ subtask: row,teamName: teamName,projectName:projectName, userStoryName:state.iWantTo, sprintNum:sprintNum }} style={{textDecoration:'none'}}>
+                                                <Link to={"/updateSprintSubtask"} state={{ subtask: row, teamName: teamName, projectName: projectName, userStoryName: state.iWantTo, sprintNum: sprintNum }} style={{ textDecoration: 'none' }}>
                                                     <Button variant="contained">Edit Subtask</Button>
                                                 </Link>
                                             </TableCell>
@@ -181,7 +191,7 @@ const UpdateSprintUserStory = () => {
                                 ))}
                             </TableBody>
                         ) :
-                            ( <div className="propertiesTextLabel">No Data found</div>)
+                            (<div className="propertiesTextLabel">No Data found</div>)
                         }
                     </Table>
                 </TableContainer>

@@ -109,8 +109,9 @@ const backlogServices = {
               projectName: "${project.projectName}",
               addIndex: ${addIndex},
               removeIndex: ${removeIndex},
-              userStory: {asA: "${userStory.asA}", iWantTo: "${userStory.iWantTo}", soIcan: "${userStory.soIcan}", tasks:[${ userStory.tasks.map(y=>`{description: "${y.description}", member: "${y.member}", status: "${y.status}", hoursWorked: ${y.hoursWorked}}`)}], priority: ${userStory.priority}, initialRelativeEstimate:${userStory.initialRelativeEstimate}, initialCostEstimate:${userStory.initialCostEstimate}}
-              ){sprints {startDate, endDate, userStories {asA, iWantTo, soIcan, priority, initialRelativeEstimate, initialCostEstimate, member, tasks {description, member, status, hoursWorked} } } }}`,
+              userStory: {asA: "${userStory.asA}", iWantTo: "${userStory.iWantTo}", soIcan: "${userStory.soIcan}", tasks:[${ userStory.tasks.map(y=>`{description: "${y.description}", member: "${y.member}", status: "${y.status}", hoursWorked: ${y.hoursWorked}}`)}], priority: ${userStory.priority}, 
+              initialRelativeEstimate:${userStory.initialRelativeEstimate}, initialCostEstimate:${userStory.initialCostEstimate}, relativeReEstimate: ${userStory.relativeReEstimate} costReEstimate: ${userStory.costReEstimate}}
+              ){sprints {startDate, endDate, userStories {asA, iWantTo, soIcan, priority, initialRelativeEstimate, initialCostEstimate, relativeReEstimate, costReEstimate,member, tasks {description, member, status, hoursWorked} } } }}`,
           }), 
         });
      }
@@ -138,8 +139,9 @@ const backlogServices = {
               projectName: "${project.projectName}",
               sprintIndex: ${sprintIndex},
               userStoryIndex: ${userStoryIndex},
-              userStory: {asA: "${userStory.asA}", iWantTo: "${userStory.iWantTo}", soIcan: "${userStory.soIcan}", tasks:[${ userStory.tasks.map(y=>`{description: "${y.description}", member: "${y.member}", status: "${y.status}", hoursWorked: ${y.hoursWorked}}`)}], priority: ${userStory.priority}, initialRelativeEstimate:${userStory.initialRelativeEstimate}, initialCostEstimate:${userStory.initialCostEstimate}}
-              ){sprints {startDate, endDate, userStories {asA, iWantTo, soIcan, priority, initialRelativeEstimate, initialCostEstimate, member, tasks {description, member, status, hoursWorked} } } }}`,
+              userStory: {asA: "${userStory.asA}", iWantTo: "${userStory.iWantTo}", soIcan: "${userStory.soIcan}", tasks:[${ userStory.tasks.map(y=>`{description: "${y.description}", member: "${y.member}", status: "${y.status}", hoursWorked: ${y.hoursWorked}}`)}], priority: ${userStory.priority}, 
+              initialRelativeEstimate:${userStory.initialRelativeEstimate}, initialCostEstimate:${userStory.initialCostEstimate}, relativeReEstimate: ${userStory.relativeReEstimate} costReEstimate: ${userStory.costReEstimate}}
+              ){sprints {startDate, endDate, userStories {asA, iWantTo, soIcan, priority, initialRelativeEstimate, initialCostEstimate, relativeReEstimate, costReEstimate, member, tasks {description, member, status, hoursWorked} } } }}`,
           }), 
         });
      }
