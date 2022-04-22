@@ -133,7 +133,7 @@ const UpdateSprintUserStory = () => {
             </div>
 
             <div className="addButton">
-                <Link to={"/addSprintSubtask"} state={{teamName: teamName, projectName:projectName, userStoryName:state.iWantTo, sprintNum:sprintNum }} style={{textDecoration:'none'}}>
+                <Link to={"/addSprintSubtask"} state={{project: project, teamName: teamName, projectName:projectName, userStoryName:state.iWantTo, userStory: thisUserStory, currentIndex: currentIndex, sprintNum:sprintNum }} style={{textDecoration:'none'}}>
                     <Button variant="contained" style={{ color: "#fff", backgroundColor: "rgb(10, 74, 89)" }} > Add Subtask</Button>
                 </Link>
             </div>
@@ -171,7 +171,7 @@ const UpdateSprintUserStory = () => {
                                             </TableCell>
                                             :
                                             <TableCell component="th" scope="row" color="primary" align="center" size="small">
-                                                <Link to={"/updateSprintSubtask"} state={{ subtask: row,teamName: teamName,projectName:projectName, userStoryName:state.iWantTo, sprintNum:sprintNum }} style={{textDecoration:'none'}}>
+                                                <Link to={"/updateSprintSubtask"} state={{ project: project, subtask: row, subtaskIndex: index, teamName: teamName, projectName:projectName, userStoryName:state.iWantTo, userStory: thisUserStory, currentIndex: currentIndex, sprintNum:sprintNum }} style={{textDecoration:'none'}}>
                                                     <Button variant="contained">Edit Subtask</Button>
                                                 </Link>
                                             </TableCell>
@@ -186,9 +186,6 @@ const UpdateSprintUserStory = () => {
                     </Table>
                 </TableContainer>
             </Paper>
-
-
-
         </ThemeProvider>
     );
 };

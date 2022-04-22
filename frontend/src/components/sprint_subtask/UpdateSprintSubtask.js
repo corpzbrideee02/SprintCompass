@@ -13,7 +13,7 @@ import {
 } from "@mui/material";
 import { Link, useLocation,useNavigate } from "react-router-dom";
 import teamServices from "../../services/teamService";
-
+import backlogServices from "../../services/backlogServices";
 import sprintSubtaskService from "../../services/sprintSubtaskService";
 
 const UpdateSprintSubtask = () => {
@@ -24,6 +24,10 @@ const UpdateSprintSubtask = () => {
     const projectName=location.state.projectName;
     const userStoryName=location.state.userStoryName;
     const sprintNum=location.state.sprintNum;
+    const currentIndex=location.state.currentIndex;
+    const userStory = location.state.userStory;
+    const subtaskIndex = location.state.subtaskIndex;
+    const project = location.state.project;
 
     const subtaskConstant=location.state.subtask.description; //to be used as an identifier
 
@@ -54,15 +58,17 @@ const UpdateSprintSubtask = () => {
     }
 
     const onSaveSubtaskClicked=()=>{
-        let subtaskToSave={description: state.description, member:state.memberSelected, status: statusSelected, hoursWorked: state.hoursWorked};
-        const index = state.allSubtasks.findIndex(item => item.description === subtaskConstant);
-        let newallSubtasks = [...state.allSubtasks]; // important to create a copy,
-        newallSubtasks[index] = subtaskToSave;
-        let projectData={allSprints:state.allSprints, newallSubtasks:newallSubtasks, sprint:state.thisSprint, projectName:projectName};
-        console.log(projectData);
-        sprintSubtaskService.updateSprintSubtask(sprintNum,userStoryName,projectData,handleSaveSubtask)
-       
-        
+        // let subtaskToSave={description: state.description, member:state.memberSelected, status: statusSelected, hoursWorked: state.hoursWorked};
+        // const index = state.allSubtasks.findIndex(item => item.description === subtaskConstant);
+        // let newallSubtasks = [...state.allSubtasks]; // important to create a copy,
+        // newallSubtasks[index] = subtaskToSave;
+        // let projectData={allSprints:state.allSprints, newallSubtasks:newallSubtasks, sprint:state.thisSprint, projectName:projectName};
+        // console.log(projectData);
+        // sprintSubtaskService.updateSprintSubtask(sprintNum,userStoryName,projectData,handleSaveSubtask)
+
+        userStory.tasks[subtaskIndex] = {description: state.description, member:state.memberSelected, status: statusSelected, hoursWorked: state.hoursWorked};
+
+        backlogServices.updateSprint(project, sprintNum -1, currentIndex, userStory, handleSaveSubtask);
     }
 
     const handleSaveSubtask=()=>{

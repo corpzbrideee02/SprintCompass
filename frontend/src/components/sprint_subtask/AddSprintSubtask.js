@@ -5,6 +5,7 @@ import { ThemeProvider } from "@mui/material/styles";
 import theme from "../../theme";
 import teamServices from "../../services/teamService";
 import sprintSubtaskService from "../../services/sprintSubtaskService";
+import backlogServices from "../../services/backlogServices";
 
 const AddSprintSubtask = () => {
     let location = useLocation();
@@ -13,6 +14,9 @@ const AddSprintSubtask = () => {
    const projectName=location.state.projectName;
    const userStoryName=location.state.userStoryName; //replace backlogName with userStoryName
    const sprintNum=location.state.sprintNum;
+   const currentIndex=location.state.currentIndex;
+    const userStory = location.state.userStory;
+    const project = location.state.project;
    
     const initialState = {
         description: "",
@@ -44,10 +48,14 @@ const AddSprintSubtask = () => {
 
     
     const onAddSubtaskClicked = () => {
-        let subtaskToAdd={description: state.description, member:state.userSelected, status: statusSelected,hoursWorked: 0};
-        let projectData={allSprints:state.allSprints, allSubtasks:state.allSubtasks, subtask:subtaskToAdd, sprint:state.thisSprint, projectName:projectName};
-       //console.log(state.thisSprint);
-         sprintSubtaskService.addNewSubtask(sprintNum,userStoryName,projectData,handleAddSubtask);
+    //     let subtaskToAdd={description: state.description, member:state.userSelected, status: statusSelected,hoursWorked: 0};
+    //     let projectData={allSprints:state.allSprints, allSubtasks:state.allSubtasks, subtask:subtaskToAdd, sprint:state.thisSprint, projectName:projectName};
+    //    //console.log(state.thisSprint);
+    //      sprintSubtaskService.addNewSubtask(sprintNum,userStoryName,projectData,handleAddSubtask);
+
+        userStory.tasks.push({description: state.description, member:state.userSelected, status: statusSelected, hoursWorked: 0});
+
+        backlogServices.updateSprint(project, sprintNum -1, currentIndex, userStory, handleAddSubtask);
     }
 
     const fetchAllsprints=(data)=>{
