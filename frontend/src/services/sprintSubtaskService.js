@@ -6,6 +6,29 @@ const METHOD = "POST";
 const HEADERS = { "Content-Type": "application/json; charset=utf-8" };
 
 const sprintSubtaskService = {
+
+//need this for generating report
+fetchSprintsUserStories: async (index, project, cb) => {
+  try {
+    let response = await fetch(GRAPHURL, {
+      method: METHOD,
+      headers: HEADERS,
+      body: JSON.stringify({
+        query: `query {projectbyname(projectName: "${project}") { projectName, sprints { userStories {iWantTo, relativeReEstimate, costReEstimate, tasks {description, member, status, hoursWorked} }, startDate, endDate } }}`,
+      }),
+    });
+    let json = await response.json();
+    //console.log(json.data.projectbyname);
+    //console.log(json.data.projectbyname.sprints[index-1].userStories)
+    if ((index - 1) >= 0) {
+      cb(json.data.projectbyname.sprints[index - 1].userStories);
+    }
+  } catch (error) {
+    console.log(error);
+  }
+},
+
+
   //fetch sprints userstories
   fetchSprintsByProject: async (index, project, cb) => {
     try {

@@ -15,6 +15,9 @@ import {
 } from "@mui/material";
 import { Link, useLocation } from "react-router-dom";
 
+import generateSprintReport from "../../report/sprintReport";
+import sprintSubtaskService from "../../services/sprintSubtaskService";
+
 const ViewSprint = () => {
 
     let location = useLocation();
@@ -22,23 +25,29 @@ const ViewSprint = () => {
     const sprint = location.state.sprint;
     const projectName = location.state.projectName;
     const sprintNum = location.state.rowNum;
-    const teamName=location.state.teamName;
+    const teamName = location.state.teamName;
     //const backlog = location.state.backlog;
     console.log(sprint)
     const initialState = {
         startDate: sprint.startDate,
         endDate: sprint.endDate,
         projectName: sprint.projectName,
-        disabled: true
+        disabled: true,
+        sprintToReport: null,
     };
 
     const reducer = (state, newState) => ({ ...state, ...newState });
     const [state, setState] = useReducer(reducer, initialState);
 
+    useEffect(() => {
+        sprintSubtaskService.fetchSprintsUserStories(sprintNum, projectName, handleFetchUserStories);
+
+    }, []);
+
     const onCreateReportClicked = () => {
         let doc = new jsPDF("p", "pt", "a4");
         doc.html(document.querySelector("#homePage"), {
-            callback: function(pdf){
+            callback: function (pdf) {
                 pdf.save("sprint.pdf");
             }
         });
@@ -52,6 +61,40 @@ const ViewSprint = () => {
 
     const calcReEstimates = () => {
         //
+    }
+
+    //data needed for report
+    const handleFetchUserStories = (data) => {
+        setState({ sprintToReport: data });
+    }
+
+    const onClickGenerateReport = () => {
+        let projectName = project.projectName;
+        //sprintSubtaskService.fetchSprintsUserStories(sprintNum,projectName,handleFetchUserStories)
+        //console.log(userStories);
+        generateSprintReport(state.sprintToReport, sprint, projectName, sprintNum);
+
+
+        /* let userStories=[{iWantTo:'iii', relativeReEstimate:'9090', costReEstimate:'9', other:'xx'}];
+        const userStoriesFields = ['iWantTo', 'relativeReEstimate', 'costReEstimate'];
+       let values = userStories.map(e=>{Object.keys(userStories[0]).filter(e=>{userStoriesFields.includes(e)})});
+       //let values=Object.keys(userStories).filter(e=>userStoriesFields.includes(e));
+       console.log(values);
+        //values = primary_data.userStories.map((element) => { return Object.values(element)});
+ 
+        //keyValuesUserStory = primary_data.userStories.map((element) => {Object.keys(element).filter((e)=>userStoriesFields.includes(e))});
+        //let keyValuesUserStory =  {...userStories};
+        // Convert `obj` to a key/value array
+        const asArray = Object.entries(userStories);
+ 
+        const filtered = asArray.filter(([key, value]) => userStoriesFields.includes(key));
+      console.log(filtered)
+ 
+        // Convert the key/value array back to an object:
+        const userStoriesObjs = Object.fromEntries(filtered);
+        const returnValues = {...Object.values(userStoriesObjs)};
+        console.log(returnValues); */
+
     }
 
     return (
@@ -71,6 +114,11 @@ const ViewSprint = () => {
                             <td style={{ fontWeight: 'lighter' }}>{sprint.endDate}</td>
                         </tr>
 
+                    </div>
+
+                    <div style={{ textAlign: 'center', margin: '20px' }}>
+
+                        <Button variant="outlined" onClick={onClickGenerateReport}>Download Sprint Report</Button>
                     </div>
                 </table>
 
@@ -108,7 +156,7 @@ const ViewSprint = () => {
                                             </TableCell>
 
                                             <TableCell component="th" scope="row" color="primary" align="center" size="small">
-                                                <Link to={"/updateSprintStory"} state={{ project: project, userStory: row, teamName: teamName, projectName:projectName, sprintNum:sprintNum, index: index}} style={{textDecoration:'none'}}>
+                                                <Link to={"/updateSprintStory"} state={{ project: project, userStory: row, teamName: teamName, projectName: projectName, sprintNum: sprintNum, index: index }} style={{ textDecoration: 'none' }}>
                                                     <Button variant="contained">Edit User Story</Button>
                                                 </Link>
                                             </TableCell>

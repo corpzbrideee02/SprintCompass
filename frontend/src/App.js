@@ -78,7 +78,7 @@ const App = () => {
               {(state.firstName!==""&&state.lastName!=="")&&
               <>
               <label className="headerUsername">User: {state.firstName} {state.lastName}</label>
-              <Button variant="contained" color="primary" onClick={handleClick} style={{ marginLeft: "auto", paddingRight: "1vh",color:"#fff", backgroundColor:"rgb(10, 74, 89)" }}> Menu </Button>
+              <Button variant="contained" color="primary" onClick={handleClick} style={{ marginLeft: "auto", paddingRight: "1vh",color:"#fff", backgroundColor:"rgb(10, 74, 89)" }}> Logout </Button>
                 <Menu
                   id="simple-menu"
                   anchorEl={anchorEl}
