@@ -59,11 +59,9 @@ const AddNewTeam = () => {
     let role = (selectedUser.email === state.userSelected ? "PMO" : "Team Member");
     let membersToAdd = { firstName: someUser.firstName, lastName: someUser.lastName, email: state.userSelected, role: role };
 
-    if (state.tempMembersToAdd.find(member => member.email === membersToAdd.email) === undefined)
-      state.tempMembersToAdd.push(membersToAdd);
-    
+    if (someUser !== undefined && state.tempMembersToAdd.find(member => member.email === membersToAdd.email) === undefined)
+      state.tempMembersToAdd.push(membersToAdd);    
       setState({ usersSelected: '' });
-
   }
 
   const onResetMemberClicked = () => {
@@ -97,7 +95,7 @@ const AddNewTeam = () => {
 
   const addDisabled = state.userSelected === null || state.userSelected === "";
   const resetDisabled = state.tempMembersToAdd.length === 0;
-  const createDisabled = (state.teamName === undefined || state.teamName === "") && (state.tempMembersToAdd.length === 0);
+  const createDisabled = (state.teamName === undefined || state.teamName === "") && (state.tempMembersToAdd.length === 1);
 
   return (
     <ThemeProvider theme={theme}>
