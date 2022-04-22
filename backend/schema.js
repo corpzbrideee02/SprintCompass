@@ -10,7 +10,7 @@ const schema = buildSchema(`
     type Mutation {
         adduser(firstName: String, lastName: String, email: String, password: String,): User,
         updateuserteams(email:String, teams: [String]): User
-        updateuserprojects(email: String, projects: [ProjectRoleInput]): User
+        updateuserprojects(email: String, project: ProjectRoleInput): User
         addteam(name: String, members: [MemberRoleInput]): Team
         updateteammembers(name: String, members: [MemberRoleInput]): Team
         updateteamprojects(name: String, projects: [String]): Team

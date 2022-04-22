@@ -7,6 +7,7 @@ import teamServices from "../../services/teamService";
 import projectServices from "../../services/projectService";
 import theme from "../../theme";
 import { ThemeProvider } from "@mui/material/styles";
+//import { teams } from "../../../../backend/config";
 
 const AddProject = () => {
   let location = useLocation();
@@ -79,6 +80,17 @@ const AddProject = () => {
       totalEstimatedCost: parseFloat(state.totalEstimatedCost),
     };
     projectServices.addNewProject(projectToAdd, handleAfterCreateNewProj);
+
+    teamSelectedToAdd.members.forEach(member => {
+
+      let user = {
+        email: member.email,
+        projectName: state.projectName,
+        role: member.role,
+        team: state.teamSelected
+      }
+      projectServices.addNewUserProject(user, handleAfterCreateNewProj);
+    });
     navigate(-1);
   };
 

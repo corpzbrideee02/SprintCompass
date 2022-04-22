@@ -22,8 +22,14 @@ const resolvers = {
         return  results.lastErrorObject.updatedExisting ? await dbRtns.findOne( db, users, { email: args.email } ) : null;
     },
     updateuserprojects: async (args) => {
+
+        console.log("in the resolver");
         let db = await dbRtns.getDBInstance();
-        let results = await dbRtns.updateOne( db, users, { email: args.email }, { projects: args.projects } );
+
+        let user = await dbRtns.findOne( db, users, { email: args.email } );
+        user.projects.push(args.project);
+
+        let results = await dbRtns.updateOne( db, users, { email: args.email }, { projects:user.projects } );
         return  results.lastErrorObject.updatedExisting ? await dbRtns.findOne(db, users, { email: args.email } ) : null;
     },
     addteam: async (args) => {

@@ -20,7 +20,7 @@ const projectServices = {
       console.log(error);
     }
   },
-    addNewProject: async(project,cb)=>{
+  addNewProject: async(project,cb)=>{
 
         console.log(project.team);
         project.team.members.map(e=>console.log(e));
@@ -33,12 +33,28 @@ const projectServices = {
             }),
           });
           let json = await response.json();
-    
+
           cb(); //trigger the handleAfterCreateNewProj
         } catch (error) {
           console.log(error);
         }
   },
+  addNewUserProject: async(user,cb)=>{
+
+    try {
+      let response = await fetch(GRAPHURL, {
+          method: METHOD,
+          headers: HEADERS,
+          body: JSON.stringify({
+            query: `mutation{updateuserprojects(email: "${user.email}", project: {project: "${user.projectName}", role: "${user.role}", team: "${user.team}"}) { firstName, lastName, email, password, teams, projects { project, role, team } } }`  
+          }),
+      });
+
+      cb(); //trigger the handleAfterCreateNewProj
+    } catch (error) {
+      console.log(error);
+    }
+},
 
 };
 
