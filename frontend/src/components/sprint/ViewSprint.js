@@ -70,30 +70,7 @@ const ViewSprint = () => {
 
     const onClickGenerateReport = () => {
         let projectName = project.projectName;
-        //sprintSubtaskService.fetchSprintsUserStories(sprintNum,projectName,handleFetchUserStories)
-        //console.log(userStories);
         generateSprintReport(state.sprintToReport, sprint, projectName, sprintNum);
-
-
-        /* let userStories=[{iWantTo:'iii', relativeReEstimate:'9090', costReEstimate:'9', other:'xx'}];
-        const userStoriesFields = ['iWantTo', 'relativeReEstimate', 'costReEstimate'];
-       let values = userStories.map(e=>{Object.keys(userStories[0]).filter(e=>{userStoriesFields.includes(e)})});
-       //let values=Object.keys(userStories).filter(e=>userStoriesFields.includes(e));
-       console.log(values);
-        //values = primary_data.userStories.map((element) => { return Object.values(element)});
- 
-        //keyValuesUserStory = primary_data.userStories.map((element) => {Object.keys(element).filter((e)=>userStoriesFields.includes(e))});
-        //let keyValuesUserStory =  {...userStories};
-        // Convert `obj` to a key/value array
-        const asArray = Object.entries(userStories);
- 
-        const filtered = asArray.filter(([key, value]) => userStoriesFields.includes(key));
-      console.log(filtered)
- 
-        // Convert the key/value array back to an object:
-        const userStoriesObjs = Object.fromEntries(filtered);
-        const returnValues = {...Object.values(userStoriesObjs)};
-        console.log(returnValues); */
 
     }
 

@@ -17,7 +17,7 @@ import { Link, useLocation } from "react-router-dom";
 
 import projectServices from "../../services/projectService";
 
-import generateProjectReport from "../../report/try";
+import generateProjectReport from "../../report/userReport";
 
 const ProjectHome = () => {
   let location = useLocation();
